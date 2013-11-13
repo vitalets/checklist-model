@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist-model - AngularJS directive for list of checkboxes</title>
+    <!-- Bootstrap 3-->
+    <link href="docs/libs/bootstrap/3.0.0/css/bootstrap.css" rel="stylesheet" media="screen">
+    <!--docs css-->
+    <link href="docs/main.css" rel="stylesheet" media="screen">
+    <!--angular-->
+    <script src="docs/libs/angular/1.0.8/angular.js"></script>
+    <!--google-code-prettify-->
+    <script src="docs/libs/google-code-prettify/run_prettify.js"></script>
+    <!--app-->
+    <script src="docs/app.js"></script>
+    <!--checklist-model-->
+    <script src="checklist-model.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8">
+          <h1 class="title">Checklist-model</h1>
+          <h1 style="margin-top: 0"><small> <a href="http://angularjs.org/">AngularJS</a> directive for list of checkboxes</small></h1>
+        </div>
+        <div style="padding-top: 20px; text-align: right" class="col-xs-12 col-sm-4"> <a href="checklist-model.js" class="btn btn-primary topbtn"><span style="margin-right:10px" class="glyphicon glyphicon-save"></span><strong>Download</strong></a><a href="https://github.com/vitalets/checklist-model" style="margin-left: 15px;" class="btn btn-default topbtn"><strong>View on GitHub</strong></a></div>
+      </div>
+      <div class="row">   
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Array of primitives</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl1" class="row">   
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="role in roles">
+  <input type="checkbox" checklist-model="user.roles" checklist-value="role"> {{role}}
+</label></div>
+          <script>app.controller('Ctrl1', function($scope) {
+  $scope.roles = [
+    'guest', 
+    'user', 
+    'customer', 
+    'admin'
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+});</script>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>checked  </h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role&quot;&gt; {{role}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl1', function($scope) {
+  $scope.roles = [
+    'guest', 
+    'user', 
+    'customer', 
+    'admin'
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">   
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Array of objects (pick id)</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl2" class="row">   
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="role in roles">
+  <input type="checkbox" checklist-model="user.roles" checklist-value="role.id"> {{role.text}}
+</label></div>
+          <script>app.controller('Ctrl2', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [2, 4]
+  };
+});</script>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>checked  </h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role.id&quot;&gt; {{role.text}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl2', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [2, 4]
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">   
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Array of objects (pick object)</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl3" class="row">   
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="role in roles">
+  <input type="checkbox" checklist-model="user.roles" checklist-value="role"> {{role.text}}
+</label></div>
+          <script>app.controller('Ctrl3', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [$scope.roles[1]]
+  };
+});</script>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>checked  </h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role&quot;&gt; {{role.text}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl3', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [$scope.roles[1]]
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">   
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Object properties</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl4" class="row">   
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="(key, text) in roles">
+  <input type="checkbox" checklist-model="user.roles" checklist-value="key"> {{text}}
+</label></div>
+          <script>app.controller('Ctrl4', function($scope) {
+  $scope.roles = {
+    q: 'Guest',
+    u: 'User',
+    c: 'Customer',
+    a: 'Administrator'
+  };
+  $scope.user = {
+    roles: ['c']
+  };
+});</script>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>checked  </h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, text) in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;key&quot;&gt; {{text}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl4', function($scope) {
+  $scope.roles = {
+    q: 'Guest',
+    u: 'User',
+    c: 'Customer',
+    a: 'Administrator'
+  };
+  $scope.user = {
+    roles: ['c']
+  };
+});</pre>
+        </div>
+      </div>
+      <footer>
+        <hr><p>If you have question or idea please feel free to <a href="https://github.com/vitalets/checklist-model/issues">open issue on github</a>.<br>&copy; <a href="https://github.com/vitalets">Vitaliy Potapov</a> 2013. Released under the MIT license.</p>
+
+      </footer>
+    </div>
+  </body>
+</html>
