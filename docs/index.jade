@@ -46,7 +46,23 @@ html(ng-app='app')
           a.btn.btn-default.topbtn(href='https://github.com/vitalets/checklist-model', style="margin-left: 15px;")
             strong View on GitHub
 
-      each item in items              
+      .row
+        .col-xs-12
+          :markdown
+            ###Why this is needed?  
+            In Angular one checkbox `<input type="checkbox" ng-model="...">` is linked 
+            with one model.  
+            But in practice we usually want one model to store array of checked values 
+            from several checkboxes.  
+            **Checklist-model** solves that task without additional code in controller.   
+            You should play with attributes of `<input>` tag:
+              
+            1. set `checklist-model` instead of `ng-model`
+            2. set `checklist-value` - what should be picked as array item  
+
+            Please, try out demos below:
+
+      each item in items
         .row    
           .col-xs-12
             h2(style="margin-bottom: 0")= item.text
@@ -62,7 +78,7 @@ html(ng-app='app')
             .well!= view
             script!= ctrl
           .col-xs-12.col-sm-6
-            h3 checked  
+            h3 user.roles  
             pre {{user.roles|json}}
 
         .row
