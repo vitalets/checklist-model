@@ -4,7 +4,7 @@
  */
 
 angular.module('checklist-model', [])
-.directive('checklistModel', function($parse, $compile) {
+.directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
   function contains(arr, item) {
     if (angular.isArray(arr)) {
@@ -94,4 +94,4 @@ angular.module('checklist-model', [])
       });
     }
   };
-});
+}]);
