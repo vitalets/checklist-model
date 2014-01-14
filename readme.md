@@ -14,4 +14,18 @@ You should play with attributes of `<input>` tag:
 
 Please, try out live demo: http://vitalets.github.io/checklist-model
 
-License: MIT 
+Jsfiddle: http://jsfiddle.net/Ebv3p/1/
+
+### Installation
+1. [Download latest release](https://github.com/vitalets/checklist-model/releases) or use bower:
+````
+bower install checklist-model 
+````
+
+2. Add to app dependencies:
+````js
+var app = angular.module("app", ["checklist-model"]);
+````
+
+### License
+MIT 
