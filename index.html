@@ -61,6 +61,8 @@ from several checkboxes.<br><strong>Checklist-model</strong> solves that task wi
     roles: ['user']
   };
 });</script>
+          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push('guest')">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -110,6 +112,8 @@ app.controller('Ctrl1', function($scope) {
     roles: [2, 4]
   };
 });</script>
+          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push(1)">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -159,6 +163,8 @@ app.controller('Ctrl2', function($scope) {
     roles: [$scope.roles[1]]
   };
 });</script>
+          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push(roles[0])">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -208,6 +214,8 @@ app.controller('Ctrl3', function($scope) {
     roles: ['c']
   };
 });</script>
+          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push('a')">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>

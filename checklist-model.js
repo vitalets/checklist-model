@@ -52,13 +52,12 @@ angular.module('checklist-model', [])
         throw 'You should provide  `checklist-value`.';
       }
 
-      var modelGet = $parse(attrs.checklistModel);
-      var modelSet = modelGet.assign;
-      var model = modelGet(scope);
-      var value = $parse(attrs.checklistValue)(scope);
+      // link to original model. Initially assigned in $watch
+      var model;// = modelGet(scope);
+      var value = $parse(attrs.checklistValue)(scope.$parent);
 
       // local var storing individual checkbox model
-      scope.checked = contains(model, value);
+      // scope.checked - will be set in $watch
 
       // exclude recursion
       elem.removeAttr('checklist-model');
@@ -71,27 +70,22 @@ angular.module('checklist-model', [])
           return;
         } if (newValue === true) {
           add(model, value);
-          modelSet(scope.$parent, model);
         } else if (newValue === false) {
           remove(model, value);
-          modelSet(scope.$parent, model);
         }
       });
 
       // watch element destroy to remove from model
       elem.bind('$destroy', function() {
         remove(model, value);
-        modelSet(scope.$parent, model);
       });      
 
       // watch model change
-      scope.$watch(function ngModelWatch() {
-        var curModel = modelGet(scope);
-        if (model !== curModel) {
-          model = curModel;
-          scope.checked = contains(model, value);
-        }
-      });
+      scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
+        // need this line to keep link with original model
+        model = newArr;
+        scope.checked = contains(newArr, value);
+      }, true);
     }
   };
 }]);

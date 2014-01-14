@@ -25,10 +25,10 @@ html(ng-app='app')
   body
 
     - var items = []
-    - items.push({id: 'array-simple', text: 'Array of primitives'})
-    - items.push({id: 'array-id', text: 'Array of objects (pick id)'})
-    - items.push({id: 'array-object', text: 'Array of objects (pick object)'})
-    - items.push({id: 'object', text: 'Object properties'})
+    - items.push({id: 'array-simple', text: 'Array of primitives', check: "'guest'"})
+    - items.push({id: 'array-id', text: 'Array of objects (pick id)', check: 1})
+    - items.push({id: 'array-object', text: 'Array of objects (pick object)', check: 'roles[0]'})
+    - items.push({id: 'object', text: 'Object properties', check: "'a'"})
 
     .container
       .row
@@ -77,9 +77,13 @@ html(ng-app='app')
             h3 demo
             .well!= view
             script!= ctrl
+            button(ng-click="user.roles=[];", style="margin-right: 10px") Uncheck all
+            button(ng-click="user.roles.splice(0, user.roles.length); user.roles.push("+item.check+")") Check first
+
           .col-xs-12.col-sm-6
             h3 user.roles  
             pre {{user.roles|json}}
+
 
         .row
           .col-xs-12
