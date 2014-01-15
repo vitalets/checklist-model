@@ -14,7 +14,7 @@ You should play with attributes of `<input>` tag:
 
 Please, try out live demo: http://vitalets.github.io/checklist-model
 
-Jsfiddle: http://jsfiddle.net/Ebv3p/1/
+Jsfiddle: http://jsfiddle.net/Ebv3p/2/
 
 ### Installation
 1. [Download latest release](https://github.com/vitalets/checklist-model/releases) or use bower:

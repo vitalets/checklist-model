@@ -60,9 +60,20 @@ from several checkboxes.<br><strong>Checklist-model</strong> solves that task wi
   $scope.user = {
     roles: ['user']
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('guest');
+  };
 });</script>
-          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
-          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push('guest')">Check first</button>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -86,6 +97,16 @@ app.controller('Ctrl1', function($scope) {
   ];
   $scope.user = {
     roles: ['user']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('guest');
   };
 });</pre>
         </div>
@@ -111,9 +132,20 @@ app.controller('Ctrl1', function($scope) {
   $scope.user = {
     roles: [2, 4]
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = $scope.roles.map(function(item) { return item.id; });
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push(1);
+  };
 });</script>
-          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
-          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push(1)">Check first</button>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -137,6 +169,16 @@ app.controller('Ctrl2', function($scope) {
   ];
   $scope.user = {
     roles: [2, 4]
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = $scope.roles.map(function(item) { return item.id; });
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push(1);
   };
 });</pre>
         </div>
@@ -162,9 +204,20 @@ app.controller('Ctrl2', function($scope) {
   $scope.user = {
     roles: [$scope.roles[1]]
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0]);
+  };
 });</script>
-          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
-          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push(roles[0])">Check first</button>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -189,6 +242,16 @@ app.controller('Ctrl3', function($scope) {
   $scope.user = {
     roles: [$scope.roles[1]]
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0]);
+  };
 });</pre>
         </div>
       </div>
@@ -205,7 +268,7 @@ app.controller('Ctrl3', function($scope) {
 </label></div>
           <script>app.controller('Ctrl4', function($scope) {
   $scope.roles = {
-    q: 'Guest',
+    g: 'Guest',
     u: 'User',
     c: 'Customer',
     a: 'Administrator'
@@ -213,9 +276,20 @@ app.controller('Ctrl3', function($scope) {
   $scope.user = {
     roles: ['c']
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = Object.keys($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('a');
+  };
 });</script>
-          <button ng-click="user.roles=[];" style="margin-right: 10px">Uncheck all</button>
-          <button ng-click="user.roles.splice(0, user.roles.length); user.roles.push('a')">Check first</button>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
           <h3>user.roles  </h3>
@@ -232,13 +306,23 @@ app.controller('Ctrl3', function($scope) {
           <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
 app.controller('Ctrl4', function($scope) {
   $scope.roles = {
-    q: 'Guest',
+    g: 'Guest',
     u: 'User',
     c: 'Customer',
     a: 'Administrator'
   };
   $scope.user = {
     roles: ['c']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = Object.keys($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('a');
   };
 });</pre>
         </div>

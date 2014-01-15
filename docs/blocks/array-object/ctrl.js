@@ -8,4 +8,14 @@ app.controller('Ctrl3', function($scope) {
   $scope.user = {
     roles: [$scope.roles[1]]
   };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0]);
+  };
 });
