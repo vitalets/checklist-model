@@ -75,11 +75,6 @@ angular.module('checklist-model', [])
         }
       });
 
-      // watch element destroy to remove from model
-      elem.bind('$destroy', function() {
-        remove(model, value);
-      });      
-
       // watch model change
       scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
         // need this line to keep link with original model
