@@ -87,6 +87,22 @@ module.exports = function(grunt) {
     }
   });
 
+  //bump
+  grunt.loadNpmTasks('grunt-bump');
+  grunt.config('bump', {
+    options: {
+      files: ['package.json', 'bower.json'],
+      updateConfigs: [],
+      commit: true,
+      commitMessage: 'bump %VERSION%',
+      commitFiles: ['package.json', 'bower.json'], // '-a' for all files
+      createTag: true,
+      tagName: '%VERSION%',
+      tagMessage: 'Version %VERSION%',
+      push: false
+    }
+  });
+
   //metatasks
   grunt.registerTask('docs', [
     'jshint',
