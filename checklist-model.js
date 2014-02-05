@@ -22,10 +22,11 @@ angular.module('checklist-model', [])
     arr = angular.isArray(arr) ? arr : [];
     for (var i = 0; i < arr.length; i++) {
       if (angular.equals(arr[i], item)) {
-        return;
+        return arr;
       }
     }    
     arr.push(item);
+    return arr;
   }  
 
   // remove
@@ -49,11 +50,14 @@ angular.module('checklist-model', [])
       }
 
       if (!attrs.checklistValue) {
-        throw 'You should provide  `checklist-value`.';
+        throw 'You should provide `checklist-value`.';
       }
 
       // link to original model. Initially assigned in $watch
-      var model;// = modelGet(scope);
+      var model;
+      // need setter for case when original model not array
+      var setter = $parse(attrs.checklistModel).assign;
+      // value added to list
       var value = $parse(attrs.checklistValue)(scope.$parent);
 
       // local var storing individual checkbox model
@@ -61,6 +65,7 @@ angular.module('checklist-model', [])
 
       // exclude recursion
       elem.removeAttr('checklist-model');
+      // compile with `ng-model` pointing to `checked`
       elem.attr('ng-model', 'checked');
       $compile(elem)(scope);
 
@@ -69,7 +74,13 @@ angular.module('checklist-model', [])
         if (newValue === oldValue) { 
           return;
         } if (newValue === true) {
-          add(model, value);
+          // see https://github.com/vitalets/checklist-model/issues/11
+          if (!angular.isArray(model)) {
+            setter(scope.$parent, add([], value));
+            // `model` will be updated in $watch
+          } else {
+            add(model, value);
+          }
         } else if (newValue === false) {
           remove(model, value);
         }
@@ -77,7 +88,7 @@ angular.module('checklist-model', [])
 
       // watch model change
       scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-        // need this line to keep link with original model
+        // keep link with original model
         model = newArr;
         scope.checked = contains(newArr, value);
       }, true);
