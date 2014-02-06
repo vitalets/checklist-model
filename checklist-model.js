@@ -35,20 +35,22 @@ angular.module('checklist-model', [])
       for (var i = 0; i < arr.length; i++) {
         if (angular.equals(arr[i], item)) {
           arr.splice(i, 1);
-          return;
+          break;
         }
       }
     }
+    return arr;
   }
 
   // http://stackoverflow.com/a/19228302/1458162
   function postLinkFn(scope, elem, attrs) {
     // compile with `ng-model` pointing to `checked`
     $compile(elem)(scope);
-    // link to original model. Initially assigned in $watch
-    var model;
-    // need setter for case when original model not array
-    var setter = $parse(attrs.checklistModel).assign;
+
+    // getter / setter for original model
+    var getter = $parse(attrs.checklistModel);
+    var setter = getter.assign;
+
     // value added to list
     var value = $parse(attrs.checklistValue)(scope.$parent);
 
@@ -56,23 +58,17 @@ angular.module('checklist-model', [])
     scope.$watch('checked', function(newValue, oldValue) {
       if (newValue === oldValue) { 
         return;
-      } if (newValue === true) {
-        // see https://github.com/vitalets/checklist-model/issues/11
-        if (!angular.isArray(model)) {
-          setter(scope.$parent, add([], value));
-          // `model` will be updated in $watch
-        } else {
-          add(model, value);
-        }
-      } else if (newValue === false) {
-        remove(model, value);
+      } 
+      var current = getter(scope.$parent);
+      if (newValue === true) {
+        setter(scope.$parent, add(current, value));
+      } else {
+        setter(scope.$parent, remove(current, value));
       }
     });
 
-    // watch model change
+    // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-      // keep link with original model
-      model = newArr;
       scope.checked = contains(newArr, value);
     }, true);
   }
@@ -93,8 +89,8 @@ angular.module('checklist-model', [])
 
       // exclude recursion
       tElement.removeAttr('checklist-model');
-      // local var storing individual checkbox model
-      // scope.checked - will be set in $watch
+      
+      // local scope var storing individual checkbox model
       tElement.attr('ng-model', 'checked');
 
       return postLinkFn;
