@@ -39,59 +39,65 @@ angular.module('checklist-model', [])
         }
       }
     }
-  }  
+  }
+
+  // http://stackoverflow.com/a/19228302/1458162
+  function postLinkFn(scope, elem, attrs) {
+    // compile with `ng-model` pointing to `checked`
+    $compile(elem)(scope);
+    // link to original model. Initially assigned in $watch
+    var model;
+    // need setter for case when original model not array
+    var setter = $parse(attrs.checklistModel).assign;
+    // value added to list
+    var value = $parse(attrs.checklistValue)(scope.$parent);
+
+    // watch UI checked change
+    scope.$watch('checked', function(newValue, oldValue) {
+      if (newValue === oldValue) { 
+        return;
+      } if (newValue === true) {
+        // see https://github.com/vitalets/checklist-model/issues/11
+        if (!angular.isArray(model)) {
+          setter(scope.$parent, add([], value));
+          // `model` will be updated in $watch
+        } else {
+          add(model, value);
+        }
+      } else if (newValue === false) {
+        remove(model, value);
+      }
+    });
+
+    // watch model change
+    scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
+      // keep link with original model
+      model = newArr;
+      scope.checked = contains(newArr, value);
+    }, true);
+  }
 
   return {
     restrict: 'A',
+    priority: 1000,
+    terminal: true,
     scope: true,
-    link: function(scope, elem, attrs) {
-      if (elem[0].tagName !== 'INPUT' || !elem.attr('type', 'checkbox')) {
+    compile: function(tElement, tAttrs) {
+      if (tElement[0].tagName !== 'INPUT' || !tElement.attr('type', 'checkbox')) {
         throw 'checklist-model should be applied to `input[type="checkbox"]`.';
       }
 
-      if (!attrs.checklistValue) {
+      if (!tAttrs.checklistValue) {
         throw 'You should provide `checklist-value`.';
       }
 
-      // link to original model. Initially assigned in $watch
-      var model;
-      // need setter for case when original model not array
-      var setter = $parse(attrs.checklistModel).assign;
-      // value added to list
-      var value = $parse(attrs.checklistValue)(scope.$parent);
-
+      // exclude recursion
+      tElement.removeAttr('checklist-model');
       // local var storing individual checkbox model
       // scope.checked - will be set in $watch
+      tElement.attr('ng-model', 'checked');
 
-      // exclude recursion
-      elem.removeAttr('checklist-model');
-      // compile with `ng-model` pointing to `checked`
-      elem.attr('ng-model', 'checked');
-      $compile(elem)(scope);
-
-      // watch UI checked change
-      scope.$watch('checked', function(newValue, oldValue) {
-        if (newValue === oldValue) { 
-          return;
-        } if (newValue === true) {
-          // see https://github.com/vitalets/checklist-model/issues/11
-          if (!angular.isArray(model)) {
-            setter(scope.$parent, add([], value));
-            // `model` will be updated in $watch
-          } else {
-            add(model, value);
-          }
-        } else if (newValue === false) {
-          remove(model, value);
-        }
-      });
-
-      // watch model change
-      scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-        // keep link with original model
-        model = newArr;
-        scope.checked = contains(newArr, value);
-      }, true);
+      return postLinkFn;
     }
   };
 }]);
