@@ -328,6 +328,84 @@ app.controller('Ctrl4', function($scope) {
 });</pre>
         </div>
       </div>
+            <div class="row">   
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Custom Object Comparator</h2>
+          The default comparator is the angular.equals, but in some cases we might modify the model outside from the directive scope, so we'll want to have a custom comparator (for example: compare the id only and not the whole object).<br />
+          This option is useful is some cases, like: <br />
+          <ol>
+            <li>In case we save our data in a server and fetch it back afterwards, the comparator might not works because sometimes database save do some modify to the objects.</li>
+            <li>In case we use a different structure for the value objects and the models objects and we change the model outside the directive's scope.</li>
+          </ol>
+        </div>
+      </div>
+      <div ng-controller="Ctrl5" class="row">   
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="(key, user) in users">
+  <input type="checkbox" checklist-model="selectedUsers" checklist-value="user" comparator="compareFn"> {{user.name}}
+</label></div>
+          <script>app.controller('Ctrl5', function($scope) {
+  $scope.users = [
+    {id: 1, name: 'Aaron'},
+    {id: 2, name: 'David'},
+    {id: 3, name: 'Moses'}
+  ];
+
+  $scope.selectedUsers = [];
+
+  $scope.compareFn = function(obj1, obj2)
+  {
+    return obj1.id === obj2.id;
+  };
+
+  $scope.checkAll = function() {
+    $scope.selectedUsers = Object.keys($scope.roles);
+  };
+
+  $scope.uncheckAll = function() {
+    $scope.selectedUsers = [];
+  };
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>selectedUsers </h3>
+          <pre>{{selectedUsers|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, text) in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;key&quot;&gt; {{text}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl4', function($scope) {
+  $scope.roles = {
+    g: 'Guest',
+    u: 'User',
+    c: 'Customer',
+    a: 'Administrator'
+  };
+  $scope.user = {
+    roles: ['c']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = Object.keys($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('a');
+  };
+});</pre>
+        </div>
+      </div>
       <footer>
         <hr><p>If you have question or idea please feel free to <a href="https://github.com/vitalets/checklist-model/issues">open issue on github</a>.<br>&copy; <a href="https://github.com/vitalets">Vitaliy Potapov</a> 2013. Released under the MIT license.</p>
 

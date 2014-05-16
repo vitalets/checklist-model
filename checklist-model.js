@@ -6,10 +6,10 @@
 angular.module('checklist-model', [])
 .directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
-  function contains(arr, item) {
+  function contains(arr, item, comparator) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
+        if (comparator(arr[i], item)) {
           return true;
         }
       }
@@ -67,9 +67,16 @@ angular.module('checklist-model', [])
       }
     });
 
+    var comparator = angular.equals;
+
+    if (attrs.hasOwnProperty('comparator'))
+    {
+      comparator = $parse(attrs.comparator)(scope.$parent);
+    }
+
     // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-      scope.checked = contains(newArr, value);
+      scope.checked = contains(newArr, value, comparator);
     }, true);
   }
 
