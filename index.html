@@ -378,32 +378,34 @@ app.controller('Ctrl4', function($scope) {
       <div class="row">
         <div class="col-xs-12">
           <h3>html</h3>
-          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, text) in roles&quot;&gt;
-  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;key&quot;&gt; {{text}}
-&lt;/label&gt;</pre>
+          <pre class="prettyprint ng-non-bindable">
+&lt;label ng-repeat=&quot;(key, user) in users&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;selectedUsers&quot; checklist-value=&quot;user&quot; comparator=&quot;compareFn&quot;&gt; {{user.name}}
+&lt;/label&gt;
+         </pre>
           <h3>js</h3>
           <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
-app.controller('Ctrl4', function($scope) {
-  $scope.roles = {
-    g: 'Guest',
-    u: 'User',
-    c: 'Customer',
-    a: 'Administrator'
+app.controller('Ctrl5', function($scope) {
+  $scope.users = [
+    {id: 1, name: 'Aaron'},
+    {id: 2, name: 'David'},
+    {id: 3, name: 'Moses'}
+  ];
+
+  $scope.selectedUsers = [];
+
+  $scope.compareFn = function(obj1, obj2)
+  {
+    return obj1.id === obj2.id;
   };
-  $scope.user = {
-    roles: ['c']
-  };
+
   $scope.checkAll = function() {
-    $scope.user.roles = Object.keys($scope.roles);
+    $scope.selectedUsers = Object.keys($scope.roles);
   };
+
   $scope.uncheckAll = function() {
-    $scope.user.roles = [];
-  };
-  $scope.checkFirst = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
-    $scope.user.roles.push('a');
-  };
-});</pre>
+    $scope.selectedUsers = [];
+  };</pre>
         </div>
       </div>
       <footer>
