@@ -18,10 +18,10 @@ angular.module('checklist-model', [])
   }
 
   // add
-  function add(arr, item) {
+  function add(arr, item, comparator) {
     arr = angular.isArray(arr) ? arr : [];
     for (var i = 0; i < arr.length; i++) {
-      if (angular.equals(arr[i], item)) {
+      if (comparator(arr[i], item)) {
         return arr;
       }
     }    
@@ -30,10 +30,10 @@ angular.module('checklist-model', [])
   }  
 
   // remove
-  function remove(arr, item) {
+  function remove(arr, item, comparator) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
+        if (comparator(arr[i], item)) {
           arr.splice(i, 1);
           break;
         }
@@ -54,6 +54,14 @@ angular.module('checklist-model', [])
     // value added to list
     var value = $parse(attrs.checklistValue)(scope.$parent);
 
+
+  var comparator = angular.equals;
+
+  if (attrs.hasOwnProperty('comparator'))
+  {
+	  comparator = $parse(attrs.comparator)(scope.$parent);
+  }
+
     // watch UI checked change
     scope.$watch('checked', function(newValue, oldValue) {
       if (newValue === oldValue) { 
@@ -61,18 +69,11 @@ angular.module('checklist-model', [])
       } 
       var current = getter(scope.$parent);
       if (newValue === true) {
-        setter(scope.$parent, add(current, value));
+        setter(scope.$parent, add(current, value, comparator));
       } else {
-        setter(scope.$parent, remove(current, value));
+        setter(scope.$parent, remove(current, value, comparator));
       }
     });
-
-    var comparator = angular.equals;
-
-    if (attrs.hasOwnProperty('comparator'))
-    {
-      comparator = $parse(attrs.comparator)(scope.$parent);
-    }
 
     // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
