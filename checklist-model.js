@@ -66,11 +66,19 @@ angular.module('checklist-model', [])
         setter(scope.$parent, remove(current, value));
       }
     });
+    
+    // declare one function to be used for both $watch functions
+    function setChecked(newArr, oldArr) {
+        scope.checked = contains(newArr, value);
+    }
 
     // watch original model change
-    scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-      scope.checked = contains(newArr, value);
-    }, true);
+    // use the faster $watchCollection method if it's available
+    if (angular.isFunction(scope.$parent.$watchCollection)) {
+        scope.$parent.$watchCollection(attrs.checklistModel, setChecked);
+    } else {
+        scope.$parent.$watch(attrs.checklistModel, setChecked, true);
+    }
   }
 
   return {
