@@ -1,5 +1,5 @@
 {
-  "name": "checklist-model",
+  "name": "angular-checklist-model",
   "version": "0.1.5",
   "description": "AngularJS directive for list of checkboxes based on vitalets' implementation",
   "author": "https://github.com/subdee",
