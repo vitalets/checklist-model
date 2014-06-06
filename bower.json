@@ -1,5 +1,5 @@
 {
-  "name": "checklist-model",
+  "name": "checklist-model-bm",
   "version": "0.1.3",
   "description": "AngularJS directive for list of checkboxes",
   "author": "https://github.com/vitalets",
