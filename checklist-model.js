@@ -114,10 +114,7 @@ angular.module('checklist-model', [])
 
       // Watches for changes on the checklist
       scope.$watch('checklist', function(newArr, oldArr) {
-        if ( newArr.length === scope.collection.length )
-          scope.allToggled = true;
-        else
-          scope.allToggled = false;
+        scope.allToggled = newArr.length === scope.collection.length;
       }, true);
 
       scope.toggleCheck = function () {
