@@ -28,9 +28,9 @@ html(ng-app='app')
     - var items = []
     - items.push({id: 'array-simple', text: 'Array of primitives'})
     - items.push({id: 'array-id', text: 'Array of objects (pick id)'})
+    - items.push({id: 'checklist-parent', text: 'Checklist parent for array of objects (pick id)'})
     - items.push({id: 'array-object', text: 'Array of objects (pick object)'})
     - items.push({id: 'object', text: 'Object properties'})
-    - items.push({id: 'checklist-parent', text: 'Checklist parent'})
 
     .container
       .row
@@ -60,7 +60,14 @@ html(ng-app='app')
             You should play with attributes of `<input type="checkbox">` tag:
               
             1. set `checklist-model` instead of `ng-model`
-            2. set `checklist-value` - what should be picked as array item  
+            2. set `checklist-value` - what should be picked as array item
+
+            ###Checklist parent
+            You can associate a parent checkbox (a button styled as a checkbox) with `checklist-parent` directive.
+            You can play with attributes of `<button checklist-parent></button>` directive:
+            1. set `checklist` for the model (array of checked item properties)
+            2. set `collection` for the original array of items
+            3. set `item-property` for the item property to be pushed to `checklist`
 
             Please, try out demos below:
 
