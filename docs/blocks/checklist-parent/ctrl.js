@@ -7,11 +7,11 @@ app.controller('Ctrl5', function($scope) {
   $scope.user = {
     roles: [2]
   };
-  $scope.itemProperty = 'id';
-  
+  $scope.roleProperty = 'id';
+
   $scope.checkAll = function() {
     $scope.user.roles = $scope.roles.map(function (item) {
-      return item[$scope.itemProperty];
+      return item[$scope.roleProperty];
     });
   };
   $scope.uncheckAll = function() {

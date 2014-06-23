@@ -336,7 +336,8 @@ app.controller('Ctrl4', function($scope) {
       <div ng-controller="Ctrl5" class="row">   
         <div class="col-xs-12 col-sm-6">
           <h3>demo</h3>
-          <div class="well"><label ng-repeat="role in roles">
+          <div class="well"><button checklist-parent checklist="user.roles" collection="roles" item-property="{{roleProperty}}"></button>
+<label ng-repeat="role in roles">
   <input type="checkbox" checklist-model="user.roles" checklist-value="role.id"> {{role.name}}
 </label></div>
           <script>app.controller('Ctrl5', function($scope) {
@@ -348,11 +349,11 @@ app.controller('Ctrl4', function($scope) {
   $scope.user = {
     roles: [2]
   };
-  $scope.itemProperty = 'id';
-  
+  $scope.roleProperty = 'id';
+
   $scope.checkAll = function() {
     $scope.user.roles = $scope.roles.map(function (item) {
-      return item[$scope.itemProperty];
+      return item[$scope.roleProperty];
     });
   };
   $scope.uncheckAll = function() {
@@ -375,7 +376,8 @@ app.controller('Ctrl4', function($scope) {
       <div class="row">
         <div class="col-xs-12">
           <h3>html</h3>
-          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+          <pre class="prettyprint ng-non-bindable">&lt;button checklist-parent checklist=&quot;user.roles&quot; collection=&quot;roles&quot; item-property=&quot;{{roleProperty}}&quot;&gt;&lt;/button&gt;
+&lt;label ng-repeat=&quot;role in roles&quot;&gt;
   &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role.id&quot;&gt; {{role.name}}
 &lt;/label&gt;</pre>
           <h3>js</h3>
@@ -389,11 +391,11 @@ app.controller('Ctrl5', function($scope) {
   $scope.user = {
     roles: [2]
   };
-  $scope.itemProperty = 'id';
-  
+  $scope.roleProperty = 'id';
+
   $scope.checkAll = function() {
     $scope.user.roles = $scope.roles.map(function (item) {
-      return item[$scope.itemProperty];
+      return item[$scope.roleProperty];
     });
   };
   $scope.uncheckAll = function() {

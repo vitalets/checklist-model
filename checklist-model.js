@@ -102,13 +102,12 @@ angular.module('checklist-model', [])
  * Parent checkbox styled button for a checklist model directive.
  * @param {array} checklist: analogous to checklist-model list
  * @param {array} collection: list of original elements
- * @param {string} itemProperty: property to add to checklist
+ * @param {string} itemProperty: property to add to checklist (needs to be already evaluated)
  */
 .directive('checklistParent', function () {
   return {
     scope: { checklist: '=', collection: '=', itemProperty: '@' },
-    template: '<button class="checkbox" ng-click="toggleCheck()" ng-class="{\'checked\': allToggled}">' +
-     '<i class="fa fa-check dpt-icon-check"></i></button>',
+    template: '<button class="checkbox" ng-click="toggleCheck()" ng-class="{\'checked\': allToggled}"></button>',
     replace: true,
     link: function ( scope, element ) {
       scope.allToggled = false;

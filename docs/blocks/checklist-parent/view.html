@@ -1,3 +1,4 @@
+<button checklist-parent checklist="user.roles" collection="roles" item-property="{{roleProperty}}"></button>
 <label ng-repeat="role in roles">
   <input type="checkbox" checklist-model="user.roles" checklist-value="role.id"> {{role.name}}
 </label>
