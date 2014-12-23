@@ -25,3 +25,12 @@ footer {
   margin: 5px 0;
   width: 140px;
 }
+
+button.checkbox {
+  height: 30px;
+}
+
+button.checkbox.checked::after {
+  content: "x";
+  margin-left: -14px;
+}

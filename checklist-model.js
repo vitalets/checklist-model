@@ -70,6 +70,7 @@ angular.module('checklist-model', [])
     // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
       scope.checked = contains(newArr, value);
+      elem[scope.checked ? 'addClass' : 'removeClass']('checked');
     }, true);
   }
 
@@ -96,4 +97,38 @@ angular.module('checklist-model', [])
       return postLinkFn;
     }
   };
-}]);
+}])
+/**
+ * Parent checkbox styled button for a checklist model directive.
+ * @param {array} checklist: analogous to checklist-model list
+ * @param {array} collection: list of original elements
+ * @param {string} itemProperty: property to add to checklist (needs to be already evaluated)
+ */
+.directive('checklistParent', function () {
+  return {
+    scope: { checklist: '=', collection: '=', itemProperty: '@' },
+    template: '<button class="checkbox" ng-click="toggleCheck()" ng-class="{\'checked\': allToggled}"></button>',
+    replace: true,
+    link: function ( scope, element ) {
+      scope.allToggled = false;
+
+      // Watches for changes on the checklist
+      scope.$watch('checklist', function(newArr, oldArr) {
+        scope.allToggled = newArr.length === scope.collection.length;
+      }, true);
+
+      scope.toggleCheck = function () {
+        scope.allToggled = !scope.allToggled;
+        (scope.allToggled ? scope.checkAll : scope.uncheckAll)();
+      };
+      scope.checkAll = function () {
+        scope.checklist = scope.collection.map(function (item) {
+          return item[scope.itemProperty];
+        });
+      };
+      scope.uncheckAll = function () {
+        scope.checklist = [];
+      };
+    }
+  };
+});
