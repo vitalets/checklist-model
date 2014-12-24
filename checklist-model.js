@@ -65,6 +65,13 @@ angular.module('checklist-model', [])
       } else {
         setter(scope.$parent, remove(current, value));
       }
+      
+      if (attrs.checklistChange !== undefined) {
+        var arr = attrs.checklistChange.split(/[\(\),]/);
+        var fn = scope[arr[0]];
+        var args = arr.splice(1, arr.length).splice(0, arr.length - 2);
+        fn.apply(scope, args);
+      }
     });
 
     // watch original model change
