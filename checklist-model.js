@@ -6,34 +6,30 @@
 angular.module('checklist-model', [])
 .directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
-  function contains(arr, item) {
+  function contains(arr, item, compareOn) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
-          return true;
-        }
+        if (angular.equals(arr[i], item) || arr[i][compareOn] == item[compareOn]) return true;
       }
     }
     return false;
   }
 
   // add
-  function add(arr, item) {
+  function add(arr, item, compareOn) {
     arr = angular.isArray(arr) ? arr : [];
-    for (var i = 0; i < arr.length; i++) {
-      if (angular.equals(arr[i], item)) {
-        return arr;
-      }
-    }    
+    if (contains(arr, item, compareOn)) {
+      return arr;
+    }
     arr.push(item);
     return arr;
   }  
 
   // remove
-  function remove(arr, item) {
+  function remove(arr, item, compareOn) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
+        if (angular.equals(arr[i], item) || arr[i][compareOn] == item[compareOn]) {
           arr.splice(i, 1);
           break;
         }
@@ -51,6 +47,8 @@ angular.module('checklist-model', [])
     var getter = $parse(attrs.checklistModel);
     var setter = getter.assign;
 
+    var compareOn = attrs.checklistCompareOn;
+
     // value added to list
     var value = $parse(attrs.checklistValue)(scope.$parent);
 
@@ -61,15 +59,15 @@ angular.module('checklist-model', [])
       } 
       var current = getter(scope.$parent);
       if (newValue === true) {
-        setter(scope.$parent, add(current, value));
+        setter(scope.$parent, add(current, value, compareOn));
       } else {
-        setter(scope.$parent, remove(current, value));
+        setter(scope.$parent, remove(current, value, compareOn));
       }
     });
 
     // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-      scope.checked = contains(newArr, value);
+      scope.checked = contains(newArr, value, compareOn);
     }, true);
   }
 
