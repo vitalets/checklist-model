@@ -6,11 +6,17 @@
 angular.module('checklist-model', [])
 .directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
-  function contains(arr, item) {
+  function contains(arr, item, compare) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
-          return true;
+        if (angular.isUndefined(compare)) {
+          if (angular.equals(arr[i], item)) {
+            return true;
+          }
+        } else {
+          if (angular.equals(arr[i][compare], item[compare])) {
+            return true;
+          }
         }
       }
     }
@@ -18,24 +24,37 @@ angular.module('checklist-model', [])
   }
 
   // add
-  function add(arr, item) {
+  function add(arr, item, compare) {
     arr = angular.isArray(arr) ? arr : [];
     for (var i = 0; i < arr.length; i++) {
-      if (angular.equals(arr[i], item)) {
-        return arr;
+      if (angular.isUndefined(compare)) {
+        if (angular.equals(arr[i], item)) {
+          return arr;
+        }
+      } else {
+        if (angular.equals(arr[i][compare], item[compare])) {
+          return arr;
+        }
       }
-    }    
+    }
     arr.push(item);
     return arr;
-  }  
+  }
 
   // remove
-  function remove(arr, item) {
+  function remove(arr, item, compare) {
     if (angular.isArray(arr)) {
       for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
-          arr.splice(i, 1);
-          break;
+        if (angular.isUndefined(compare)) {
+          if (angular.equals(arr[i], item)) {
+            arr.splice(i, 1);
+            break;
+          }
+        } else {
+          if (angular.equals(arr[i][compare], item[compare])) {
+            arr.splice(i, 1);
+            break;
+          }
         }
       }
     }
@@ -56,20 +75,20 @@ angular.module('checklist-model', [])
 
     // watch UI checked change
     scope.$watch('checked', function(newValue, oldValue) {
-      if (newValue === oldValue) { 
+      if (newValue === oldValue) {
         return;
-      } 
+      }
       var current = getter(scope.$parent);
       if (newValue === true) {
-        setter(scope.$parent, add(current, value));
+        setter(scope.$parent, add(current, value, attrs.checklistCompare));
       } else {
-        setter(scope.$parent, remove(current, value));
+        setter(scope.$parent, remove(current, value, attrs.checklistCompare));
       }
     });
 
     // watch original model change
     scope.$parent.$watch(attrs.checklistModel, function(newArr, oldArr) {
-      scope.checked = contains(newArr, value);
+      scope.checked = contains(newArr, value, attrs.checklistCompare);
     }, true);
   }
 
@@ -89,7 +108,7 @@ angular.module('checklist-model', [])
 
       // exclude recursion
       tElement.removeAttr('checklist-model');
-      
+
       // local scope var storing individual checkbox model
       tElement.attr('ng-model', 'checked');
 
