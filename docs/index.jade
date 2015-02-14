@@ -36,11 +36,11 @@ html(ng-app='app')
         .col-xs-12.col-sm-8
           h1.title Checklist-model
           h1(style="margin-top: 0")
-            small 
+            small
               a(href="http://angularjs.org/") AngularJS
               |  directive for list of checkboxes
 
-        .col-xs-12.col-sm-4(style="padding-top: 20px; text-align: right") 
+        .col-xs-12.col-sm-4(style="padding-top: 20px; text-align: right")
           a.btn.btn-primary.topbtn(href='checklist-model.js')
             span.glyphicon.glyphicon-save(style="margin-right:10px")
             strong Download
@@ -50,21 +50,21 @@ html(ng-app='app')
       .row
         .col-xs-12
           :markdown
-            ###Why this is needed?  
-            In Angular one checkbox `<input type="checkbox" ng-model="...">` is linked 
-            with one model.  
-            But in practice we usually want one model to store array of checked values 
-            from several checkboxes.  
-            **Checklist-model** solves that task without additional code in controller.   
+            ###Why this is needed?
+            In Angular one checkbox `<input type="checkbox" ng-model="...">` is linked
+            with one model.
+            But in practice we usually want one model to store array of checked values
+            from several checkboxes.
+            **Checklist-model** solves that task without additional code in controller.
             You should play with attributes of `<input type="checkbox">` tag:
-              
+
             1. set `checklist-model` instead of `ng-model`
-            2. set `checklist-value` - what should be picked as array item  
+            2. set `checklist-value` - what should be picked as array item
 
             Please, try out demos below:
 
       each item in items
-        .row    
+        .row
           .col-xs-12
             h2(style="margin-bottom: 0")= item.text
             - var dir = 'docs/blocks/'+item.id
@@ -73,7 +73,7 @@ html(ng-app='app')
             - var ctrlName = ctrl.match(/Ctrl\d/)[0]
             - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
 
-        .row(ng-controller=ctrlName)    
+        .row(ng-controller=ctrlName)
           .col-xs-12.col-sm-6
             h3 demo
             .well!= view
@@ -83,9 +83,8 @@ html(ng-app='app')
             button(ng-click="checkFirst()") Check first
 
           .col-xs-12.col-sm-6
-            h3 user.roles  
+            h3 user.roles
             pre {{user.roles|json}}
-
 
         .row
           .col-xs-12
@@ -95,12 +94,41 @@ html(ng-app='app')
             h3 js
             pre.prettyprint= ctrlShow
 
+      .row
+        .col-xs-12
+          h2(style="margin-bottom: 0")= 'event'
+          - var dir = 'docs/blocks/event'
+          - var view = fs.readFileSync(dir+"/view.html").toString().trim()
+          - var ctrl = fs.readFileSync(dir+"/ctrl.js").toString().trim()
+          - var ctrlName = ctrl.match(/Ctrl\d/)[0]
+          - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
+
+      .row(ng-controller=ctrlName)
+        .col-xs-12.col-sm-6
+          h3 demo
+          .well!= view
+          script!= ctrl
+          button(ng-click="checkAll()", style="margin-right: 10px") Check all
+          button(ng-click="uncheckAll()", style="margin-right: 10px") Uncheck all
+          button(ng-click="checkFirst()") Check first
+
+        .col-xs-12.col-sm-6
+          h3 user.roles
+          pre {{testValue}}
+
+      .row
+        .col-xs-12
+          h3 html
+          pre.prettyprint.ng-non-bindable= view
+
+          h3 js
+          pre.prettyprint= ctrlShow
+
       footer
         hr
         :markdown
-          If you have question or idea please feel free to [open issue on github](https://github.com/vitalets/checklist-model/issues).  
+          If you have question or idea please feel free to [open issue on github](https://github.com/vitalets/checklist-model/issues).
           &copy; [Vitaliy Potapov](https://github.com/vitalets) 2013. Released under the MIT license.
 
     if env == 'prod'
-      include metrika.html 
-     
+      include metrika.html
