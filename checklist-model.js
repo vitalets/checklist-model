@@ -55,9 +55,9 @@ angular.module('checklist-model', [])
 
   var comparator = angular.equals;
 
-  if (attrs.hasOwnProperty('comparator'))
+  if (attrs.hasOwnProperty('checklistComparator'))
   {
-	  comparator = $parse(attrs.comparator)(scope.$parent);
+	  comparator = $parse(attrs.checklistComparator)(scope.$parent);
   }
 
     // watch UI checked change
@@ -79,7 +79,7 @@ angular.module('checklist-model', [])
     
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
-        scope.checked = contains(newArr, value);
+        scope.checked = contains(newArr, value, comparator);
     }
 
     // watch original model change
