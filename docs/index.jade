@@ -96,6 +96,36 @@ html(ng-app='app')
 
       .row
         .col-xs-12
+          h2(style="margin-bottom: 0")= 'filter'
+          - var dir = 'docs/blocks/filter'
+          - var view = fs.readFileSync(dir+"/view.html").toString().trim()
+          - var ctrl = fs.readFileSync(dir+"/ctrl.js").toString().trim()
+          - var ctrlName = ctrl.match(/Ctrl\d/)[0]
+          - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
+
+      .row(ng-controller=ctrlName)
+        .col-xs-12.col-sm-6
+          h3 demo
+          .well!= view
+          script!= ctrl
+          button(ng-click="checkAll()", style="margin-right: 10px") Check all
+          button(ng-click="uncheckAll()", style="margin-right: 10px") Uncheck all
+          button(ng-click="checkFirst()") Check first
+
+        .col-xs-12.col-sm-6
+          h3 user.users
+          pre {{selectedUsers}}
+
+      .row
+        .col-xs-12
+          h3 html
+          pre.prettyprint.ng-non-bindable= view
+
+          h3 js
+          pre.prettyprint= ctrlShow
+
+      .row
+        .col-xs-12
           h2(style="margin-bottom: 0")= 'event'
           - var dir = 'docs/blocks/event'
           - var view = fs.readFileSync(dir+"/view.html").toString().trim()

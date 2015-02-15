@@ -333,6 +333,86 @@ app.controller('Ctrl4', function($scope) {
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">filter</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl6" class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="(key, user) in users">
+  <input type="checkbox" checklist-model="selectedUsers" checklist-value="user" checklist-comparator="compareFn"> {{user.name}}
+</label></div>
+          <script>app.controller('Ctrl6', function($scope) {
+    $scope.users = [
+        {id: 1, name: 'Aaron'},
+        {id: 2, name: 'David'},
+        {id: 3, name: 'Moses'}
+    ];
+
+    $scope.selectedUsers = [];
+
+    $scope.compareFn = function(obj1, obj2){
+        return obj1.id === obj2.id;
+    };
+
+    $scope.checkFirst = function() {
+        $scope.selectedUsers = $scope.users[0];
+    };
+
+    $scope.checkAll = function() {
+        $scope.selectedUsers = $scope.users;
+    };
+
+    $scope.uncheckAll = function() {
+        $scope.selectedUsers = [];
+    }
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>user.users</h3>
+          <pre>{{selectedUsers}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, user) in users&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;selectedUsers&quot; checklist-value=&quot;user&quot; checklist-comparator=&quot;compareFn&quot;&gt; {{user.name}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl6', function($scope) {
+    $scope.users = [
+        {id: 1, name: 'Aaron'},
+        {id: 2, name: 'David'},
+        {id: 3, name: 'Moses'}
+    ];
+
+    $scope.selectedUsers = [];
+
+    $scope.compareFn = function(obj1, obj2){
+        return obj1.id === obj2.id;
+    };
+
+    $scope.checkFirst = function() {
+        $scope.selectedUsers = $scope.users[0];
+    };
+
+    $scope.checkAll = function() {
+        $scope.selectedUsers = $scope.users;
+    };
+
+    $scope.uncheckAll = function() {
+        $scope.selectedUsers = [];
+    }
+});</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <h2 style="margin-bottom: 0">event</h2>
         </div>
       </div>

@@ -6,10 +6,10 @@
 angular.module('checklist-model', [])
 .directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
-  function contains(arr, item) {
+  function contains(arr, item, comparator) {
     if (angular.isArray(arr)) {
-      for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
+      for (var i = arr.length; i--;) {
+        if (comparator(arr[i], item)) {
           return true;
         }
       }
@@ -18,22 +18,19 @@ angular.module('checklist-model', [])
   }
 
   // add
-  function add(arr, item) {
+  function add(arr, item, comparator) {
     arr = angular.isArray(arr) ? arr : [];
-    for (var i = 0; i < arr.length; i++) {
-      if (angular.equals(arr[i], item)) {
-        return arr;
+      if(!contains(arr, item, comparator)) {
+          arr.push(item);
       }
-    }    
-    arr.push(item);
     return arr;
   }  
 
   // remove
-  function remove(arr, item) {
+  function remove(arr, item, comparator) {
     if (angular.isArray(arr)) {
-      for (var i = 0; i < arr.length; i++) {
-        if (angular.equals(arr[i], item)) {
+      for (var i = arr.length; i--;) {
+        if (comparator(arr[i], item)) {
           arr.splice(i, 1);
           break;
         }
@@ -55,6 +52,13 @@ angular.module('checklist-model', [])
     // value added to list
     var value = $parse(attrs.checklistValue)(scope.$parent);
 
+
+  var comparator = angular.equals;
+
+  if (attrs.hasOwnProperty('checklistComparator')){
+    comparator = $parse(attrs.checklistComparator)(scope.$parent);
+  }
+
     // watch UI checked change
     scope.$watch('checked', function(newValue, oldValue) {
       if (newValue === oldValue) { 
@@ -62,9 +66,9 @@ angular.module('checklist-model', [])
       } 
       var current = getter(scope.$parent);
       if (newValue === true) {
-        setter(scope.$parent, add(current, value));
+        setter(scope.$parent, add(current, value, comparator));
       } else {
-        setter(scope.$parent, remove(current, value));
+        setter(scope.$parent, remove(current, value, comparator));
       }
 
       if (checklistChange) {
@@ -74,7 +78,7 @@ angular.module('checklist-model', [])
     
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
-        scope.checked = contains(newArr, value);
+        scope.checked = contains(newArr, value, comparator);
     }
 
     // watch original model change
