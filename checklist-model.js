@@ -55,9 +55,8 @@ angular.module('checklist-model', [])
 
   var comparator = angular.equals;
 
-  if (attrs.hasOwnProperty('checklistComparator'))
-  {
-	  comparator = $parse(attrs.checklistComparator)(scope.$parent);
+  if (attrs.hasOwnProperty('checklistComparator')){
+    comparator = $parse(attrs.checklistComparator)(scope.$parent);
   }
 
     // watch UI checked change
