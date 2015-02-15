@@ -8,7 +8,7 @@ angular.module('checklist-model', [])
   // contains
   function contains(arr, item) {
     if (angular.isArray(arr)) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = arr.length; i--;) {
         if (angular.equals(arr[i], item)) {
           return true;
         }
@@ -20,19 +20,16 @@ angular.module('checklist-model', [])
   // add
   function add(arr, item) {
     arr = angular.isArray(arr) ? arr : [];
-    for (var i = 0; i < arr.length; i++) {
-      if (angular.equals(arr[i], item)) {
-        return arr;
-      }
-    }    
-    arr.push(item);
+    if(!contains(arr, item)){
+      arr.push(item);
+    }
     return arr;
   }  
 
   // remove
   function remove(arr, item) {
     if (angular.isArray(arr)) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = arr.length; i--;) {
         if (angular.equals(arr[i], item)) {
           arr.splice(i, 1);
           break;
