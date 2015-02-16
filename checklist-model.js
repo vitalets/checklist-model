@@ -106,6 +106,10 @@ angular.module('checklist-model', [])
 
       // exclude recursion
       tElement.removeAttr('checklist-model');
+
+      //Fix for Issue #16
+      tElement.removeAttr('data-checklist-model');
+      tElement.removeAttr('x-checklist-model');
       
       // local scope var storing individual checkbox model
       tElement.attr('ng-model', 'checked');
