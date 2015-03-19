@@ -50,7 +50,7 @@ angular.module('checklist-model', [])
     var checklistChange = $parse(attrs.checklistChange);
 
     // value added to list
-    var value = $parse(attrs.checklistValue)(scope.$parent);
+    var value = $parse(attrs.checklistValue || attrs.value)(scope.$parent);
 
 
   var comparator = angular.equals;
@@ -98,10 +98,6 @@ angular.module('checklist-model', [])
     compile: function(tElement, tAttrs) {
       if (tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') {
         throw 'checklist-model should be applied to `input[type="checkbox"]`.';
-      }
-
-      if (!tAttrs.checklistValue) {
-        throw 'You should provide `checklist-value`.';
       }
 
       // exclude recursion
