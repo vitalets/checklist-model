@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git://github.com/vitalets/checklist-model.git"
   },
+  "main": "checklist-model.js",
   "engines": {
     "node": ">= 0.8.0"
   },
