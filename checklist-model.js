@@ -41,11 +41,15 @@ angular.module('checklist-model', [])
 
   // http://stackoverflow.com/a/19228302/1458162
   function postLinkFn(scope, elem, attrs) {
+     // exclude recursion, but still keep the model
+    var checklistModel = attrs.checklistModel;
+    attrs.$set("checklistModel", null);
     // compile with `ng-model` pointing to `checked`
     $compile(elem)(scope);
+	attrs.$set("checklistModel", checklistModel);
 
     // getter / setter for original model
-    var getter = $parse(attrs.checklistModel);
+    var getter = $parse(checklistModel);
     var setter = getter.assign;
     var checklistChange = $parse(attrs.checklistChange);
 
@@ -84,9 +88,9 @@ angular.module('checklist-model', [])
     // watch original model change
     // use the faster $watchCollection method if it's available
     if (angular.isFunction(scope.$parent.$watchCollection)) {
-        scope.$parent.$watchCollection(attrs.checklistModel, setChecked);
+        scope.$parent.$watchCollection(checklistModel, setChecked);
     } else {
-        scope.$parent.$watch(attrs.checklistModel, setChecked, true);
+        scope.$parent.$watch(checklistModel, setChecked, true);
     }
   }
 
@@ -104,11 +108,12 @@ angular.module('checklist-model', [])
         throw 'You should provide `value` or `checklist-value`.';
       }
 
-      // exclude recursion
-      tElement.removeAttr('checklist-model');
-      
+      if (tAttrs.ngModel) {
+        throw 'You should not provide a value for `ngModel` if you already provided `checklist-model`';
+      }
+
       // local scope var storing individual checkbox model
-      tElement.attr('ng-model', 'checked');
+      tAttrs.$set("ngModel", "checked");
 
       return postLinkFn;
     }
