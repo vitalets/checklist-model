@@ -24,7 +24,7 @@ angular.module('checklist-model', [])
           arr.push(item);
       }
     return arr;
-  }  
+  }
 
   // remove
   function remove(arr, item, comparator) {
@@ -61,21 +61,23 @@ angular.module('checklist-model', [])
 
     // watch UI checked change
     scope.$watch('checked', function(newValue, oldValue) {
-      if (newValue === oldValue) { 
+      if (newValue === oldValue) {
         return;
-      } 
+      }
       var current = getter(scope.$parent);
       if (newValue === true) {
-        setter(scope.$parent, add(current, value, comparator));
+        var addResult = add(current, value, comparator);
+        if (setter) setter(scope.$parent, addResult);
       } else {
-        setter(scope.$parent, remove(current, value, comparator));
+        var removeResult = remove(current, value, comparator);
+        if (setter) setter(scope.$parent, removeResult);
       }
 
       if (checklistChange) {
         checklistChange(scope);
       }
     });
-    
+
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
         scope.checked = contains(newArr, value, comparator);
@@ -106,7 +108,7 @@ angular.module('checklist-model', [])
 
       // exclude recursion
       tElement.removeAttr('checklist-model');
-      
+
       // local scope var storing individual checkbox model
       tElement.attr('ng-model', 'checked');
 
