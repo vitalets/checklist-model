@@ -108,7 +108,8 @@ angular.module('checklist-model', [])
       tElement.removeAttr('checklist-model');
       
       // local scope var storing individual checkbox model
-      tElement.attr('ng-model', 'checked');
+      var ngModelName = tAttrs.ngModel ? tAttrs.ngModel : 'checked';
+      tElement.attr('ng-model', ngModelName);
 
       return postLinkFn;
     }
