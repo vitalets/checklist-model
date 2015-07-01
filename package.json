@@ -7,7 +7,7 @@
     "name": "Vitaliy Potapov",
     "email": "noginsk@rambler.ru"
   },
-  "main": "index.js",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/vitalets/checklist-model.git"
