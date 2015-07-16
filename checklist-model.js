@@ -59,14 +59,14 @@ angular.module('checklist-model', [])
     var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
 
 
-  var comparator = angular.equals;
+    var comparator = angular.equals;
 
-  if (attrs.hasOwnProperty('checklistComparator')){
-    comparator = $parse(attrs.checklistComparator)(scope.$parent);
-  }
+    if (attrs.hasOwnProperty('checklistComparator')){
+      comparator = $parse(attrs.checklistComparator)(scope.$parent);
+    }
 
     // watch UI checked change
-    scope.$watch('checked', function(newValue, oldValue) {
+    scope.$watch(attrs.ngModel, function(newValue, oldValue) {
       if (newValue === oldValue) { 
         return;
       } 
@@ -84,7 +84,7 @@ angular.module('checklist-model', [])
     
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
-        scope.checked = contains(newArr, value, comparator);
+        scope[attrs.ngModel] = contains(newArr, value, comparator);
     }
 
     // watch original model change
@@ -112,12 +112,11 @@ angular.module('checklist-model', [])
         throw 'You should provide `value` or `checklist-value`.';
       }
 
-      if (tAttrs.ngModel) {
-        throw 'You should not provide a value for `ngModel` if you already provided `checklist-model`';
+      // by default ngModel is 'checked', so we set it if not specified
+      if (!tAttrs.ngModel) {
+        // local scope var storing individual checkbox model
+        tAttrs.$set("ngModel", "checked");
       }
-
-      // local scope var storing individual checkbox model
-      tAttrs.$set("ngModel", "checked");
 
       return postLinkFn;
     }
