@@ -26,10 +26,13 @@ html(ng-app='app')
   body
 
     - var items = []
-    - items.push({id: 'array-simple', text: 'Array of primitives'})
-    - items.push({id: 'array-id', text: 'Array of objects (pick id)'})
-    - items.push({id: 'array-object', text: 'Array of objects (pick object)'})
-    - items.push({id: 'object', text: 'Object properties'})
+    - items.push({id: 'array-simple', text: 'Array of primitives', ctrlName: 'Ctrl1', testValue: 'user.roles'})
+    - items.push({id: 'array-id', text: 'Array of objects (pick id)', ctrlName: 'Ctrl2', testValue: 'user.roles'})
+    - items.push({id: 'array-object', text: 'Array of objects (pick object)', ctrlName: 'Ctrl3', testValue: 'user.roles'})
+    - items.push({id: 'object', text: 'Object properties', ctrlName: 'Ctrl4', testValue: 'user.roles'})
+    - items.push({id: 'array-object-with-ngmodel', text: 'Array of object, specifying also the ngModel attribute', ctrlName: 'Ctrl3a', testValue: 'user.roles'})
+    - items.push({id: 'filter', text: 'Filter', ctrlName: 'Ctrl6', testValue: 'selectedUsers'})
+    - items.push({id: 'event', text: 'Event', ctrlName: 'Ctrl5', testValue: 'testValue'})
 
     .container
       .row
@@ -70,7 +73,7 @@ html(ng-app='app')
             - var dir = 'docs/blocks/'+item.id
             - var view = fs.readFileSync(dir+"/view.html").toString().trim()
             - var ctrl = fs.readFileSync(dir+"/ctrl.js").toString().trim()
-            - var ctrlName = ctrl.match(/Ctrl\d/)[0]
+            - var ctrlName = item.ctrlName
             - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
 
         .row(ng-controller=ctrlName)
@@ -83,8 +86,8 @@ html(ng-app='app')
             button(ng-click="checkFirst()") Check first
 
           .col-xs-12.col-sm-6
-            h3 user.roles
-            pre {{user.roles|json}}
+            h3= item.testValue
+            pre= '{{' + item.testValue + '|json}}'
 
         .row
           .col-xs-12
@@ -93,66 +96,6 @@ html(ng-app='app')
 
             h3 js
             pre.prettyprint= ctrlShow
-
-      .row
-        .col-xs-12
-          h2(style="margin-bottom: 0")= 'filter'
-          - var dir = 'docs/blocks/filter'
-          - var view = fs.readFileSync(dir+"/view.html").toString().trim()
-          - var ctrl = fs.readFileSync(dir+"/ctrl.js").toString().trim()
-          - var ctrlName = ctrl.match(/Ctrl\d/)[0]
-          - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
-
-      .row(ng-controller=ctrlName)
-        .col-xs-12.col-sm-6
-          h3 demo
-          .well!= view
-          script!= ctrl
-          button(ng-click="checkAll()", style="margin-right: 10px") Check all
-          button(ng-click="uncheckAll()", style="margin-right: 10px") Uncheck all
-          button(ng-click="checkFirst()") Check first
-
-        .col-xs-12.col-sm-6
-          h3 user.users
-          pre {{selectedUsers}}
-
-      .row
-        .col-xs-12
-          h3 html
-          pre.prettyprint.ng-non-bindable= view
-
-          h3 js
-          pre.prettyprint= ctrlShow
-
-      .row
-        .col-xs-12
-          h2(style="margin-bottom: 0")= 'event'
-          - var dir = 'docs/blocks/event'
-          - var view = fs.readFileSync(dir+"/view.html").toString().trim()
-          - var ctrl = fs.readFileSync(dir+"/ctrl.js").toString().trim()
-          - var ctrlName = ctrl.match(/Ctrl\d/)[0]
-          - var ctrlShow = 'var app = angular.module("app", ["checklist-model"]);\n' + ctrl
-
-      .row(ng-controller=ctrlName)
-        .col-xs-12.col-sm-6
-          h3 demo
-          .well!= view
-          script!= ctrl
-          button(ng-click="checkAll()", style="margin-right: 10px") Check all
-          button(ng-click="uncheckAll()", style="margin-right: 10px") Uncheck all
-          button(ng-click="checkFirst()") Check first
-
-        .col-xs-12.col-sm-6
-          h3 user.roles
-          pre {{testValue}}
-
-      .row
-        .col-xs-12
-          h3 html
-          pre.prettyprint.ng-non-bindable= view
-
-          h3 js
-          pre.prettyprint= ctrlShow
 
       footer
         hr

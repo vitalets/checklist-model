@@ -16,7 +16,19 @@ app.controller('Ctrl5', function($scope) {
   };
 
   $scope.checkFirst = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
     $scope.user.roles.push('a');
   };
+
+  $scope.uncheckAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length);
+  };
+
+  $scope.checkAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length);
+    for (var r in $scope.roles) {
+      $scope.user.roles.push(r);
+    }
+  };
+
 });

@@ -10,7 +10,7 @@ describe('event', function() {
   it('should check of roles are changed to new value before checklist-change is fired', function() {
     element(s+'button[ng-click="checkFirst()"]').click();
     check(a, [1,0,0,0]);
-    expect(element(s+'pre').text()).toBe('a');
+    expect(element(s+'pre').text()).toBe('"a"');
   });
 
 });
