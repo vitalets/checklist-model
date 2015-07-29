@@ -196,7 +196,7 @@ app.controller('Ctrl2', function($scope) {
         <div class="col-xs-12 col-sm-6">
           <h3>demo</h3>
           <div class="well"><label ng-repeat="role in roles">
-  <input type="checkbox" checklist-model="user.roles" checklist-value="role"> {{role.text}}
+  <input type="checkbox" data-checklist-model="user.roles" data-checklist-value="role"> {{role.text}}
 </label></div>
           <script>app.controller('Ctrl3', function($scope) {
   $scope.roles = [
@@ -232,7 +232,7 @@ app.controller('Ctrl2', function($scope) {
         <div class="col-xs-12">
           <h3>html</h3>
           <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
-  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role&quot;&gt; {{role.text}}
+  &lt;input type=&quot;checkbox&quot; data-checklist-model=&quot;user.roles&quot; data-checklist-value=&quot;role&quot;&gt; {{role.text}}
 &lt;/label&gt;</pre>
           <h3>js</h3>
           <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
@@ -518,16 +518,16 @@ app.controller('Ctrl6', function($scope) {
   };
 
   $scope.checkFirst = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
     $scope.user.roles.push('a');
   };
-  
+
   $scope.uncheckAll = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
   };
 
   $scope.checkAll = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
     for (var r in $scope.roles) {
       $scope.user.roles.push(r);
     }
@@ -569,16 +569,16 @@ app.controller('Ctrl5', function($scope) {
   };
 
   $scope.checkFirst = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
     $scope.user.roles.push('a');
   };
-  
+
   $scope.uncheckAll = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
   };
 
   $scope.checkAll = function() {
-    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.splice(0, $scope.user.roles.length);
     for (var r in $scope.roles) {
       $scope.user.roles.push(r);
     }
