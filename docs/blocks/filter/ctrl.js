@@ -12,14 +12,17 @@ app.controller('Ctrl6', function($scope) {
     };
 
     $scope.checkFirst = function() {
-        $scope.selectedUsers = $scope.users[0];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length, $scope.users[0]);
     };
 
     $scope.checkAll = function() {
-        $scope.selectedUsers = $scope.users;
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
+        for (var i in $scope.users) {
+             $scope.selectedUsers.push($scope.users[i]);
+        }
     };
 
     $scope.uncheckAll = function() {
-        $scope.selectedUsers = [];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
     }
 });

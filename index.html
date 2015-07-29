@@ -333,13 +333,85 @@ app.controller('Ctrl4', function($scope) {
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <h2 style="margin-bottom: 0">filter</h2>
+          <h2 style="margin-bottom: 0">Array of object, specifying also the ngModel attribute</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl3a" class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="role in roles">
+  <input type="checkbox" checklist-model="user.roles" checklist-value="role" ng-model="justAnotherCheckedVar"> {{role.text}}
+</label></div>
+          <script>app.controller('Ctrl3a', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [$scope.roles[1]]
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0]);
+  };
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>user.roles</h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role&quot; ng-model=&quot;justAnotherCheckedVar&quot;&gt; {{role.text}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl3a', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'}
+  ];
+  $scope.user = {
+    roles: [$scope.roles[1]]
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0]);
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Filter</h2>
         </div>
       </div>
       <div ng-controller="Ctrl6" class="row">
         <div class="col-xs-12 col-sm-6">
           <h3>demo</h3>
-          <div class="well"><label ng-repeat="(key, user) in users">
+          <div class="well"><label ng-repeat="user in users">
   <input type="checkbox" checklist-model="selectedUsers" checklist-value="user" checklist-comparator="compareFn"> {{user.name}}
 </label></div>
           <script>app.controller('Ctrl6', function($scope) {
@@ -356,15 +428,18 @@ app.controller('Ctrl4', function($scope) {
     };
 
     $scope.checkFirst = function() {
-        $scope.selectedUsers = $scope.users[0];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length, $scope.users[0]);
     };
 
     $scope.checkAll = function() {
-        $scope.selectedUsers = $scope.users;
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
+        for (var i in $scope.users) {
+             $scope.selectedUsers.push($scope.users[i]);
+        }
     };
 
     $scope.uncheckAll = function() {
-        $scope.selectedUsers = [];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
     }
 });</script>
           <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
@@ -372,14 +447,14 @@ app.controller('Ctrl4', function($scope) {
           <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
-          <h3>user.users</h3>
-          <pre>{{selectedUsers}}</pre>
+          <h3>selectedUsers</h3>
+          <pre>{{selectedUsers|json}}</pre>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <h3>html</h3>
-          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, user) in users&quot;&gt;
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;user in users&quot;&gt;
   &lt;input type=&quot;checkbox&quot; checklist-model=&quot;selectedUsers&quot; checklist-value=&quot;user&quot; checklist-comparator=&quot;compareFn&quot;&gt; {{user.name}}
 &lt;/label&gt;</pre>
           <h3>js</h3>
@@ -398,22 +473,25 @@ app.controller('Ctrl6', function($scope) {
     };
 
     $scope.checkFirst = function() {
-        $scope.selectedUsers = $scope.users[0];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length, $scope.users[0]);
     };
 
     $scope.checkAll = function() {
-        $scope.selectedUsers = $scope.users;
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
+        for (var i in $scope.users) {
+             $scope.selectedUsers.push($scope.users[i]);
+        }
     };
 
     $scope.uncheckAll = function() {
-        $scope.selectedUsers = [];
+        $scope.selectedUsers.splice(0, $scope.selectedUsers.length);
     }
 });</pre>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <h2 style="margin-bottom: 0">event</h2>
+          <h2 style="margin-bottom: 0">Event</h2>
         </div>
       </div>
       <div ng-controller="Ctrl5" class="row">
@@ -443,14 +521,26 @@ app.controller('Ctrl6', function($scope) {
     $scope.user.roles.splice(0, $scope.user.roles.length); 
     $scope.user.roles.push('a');
   };
+  
+  $scope.uncheckAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+  };
+
+  $scope.checkAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    for (var r in $scope.roles) {
+      $scope.user.roles.push(r);
+    }
+  };
+
 });</script>
           <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
           <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
           <button ng-click="checkFirst()">Check first</button>
         </div>
         <div class="col-xs-12 col-sm-6">
-          <h3>user.roles</h3>
-          <pre>{{testValue}}</pre>
+          <h3>testValue</h3>
+          <pre>{{testValue|json}}</pre>
         </div>
       </div>
       <div class="row">
@@ -482,6 +572,18 @@ app.controller('Ctrl5', function($scope) {
     $scope.user.roles.splice(0, $scope.user.roles.length); 
     $scope.user.roles.push('a');
   };
+  
+  $scope.uncheckAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+  };
+
+  $scope.checkAll = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    for (var r in $scope.roles) {
+      $scope.user.roles.push(r);
+    }
+  };
+
 });</pre>
         </div>
       </div>
