@@ -21,6 +21,11 @@ describe('array-object', function() {
     expect(element(s+'pre').text()).toMatch('guest');
   });
 
+  it('should set model to null', function() {
+    element(s+'button[ng-click="setToNull()"]').click();
+    check(a, [0,0,0,0]);
+    expect(element(s+'pre').text()).toBe('null');
+  });
   it('should check all', function() {
     element(s+'button[ng-click="checkAll()"]').click();
     check(a, [1,1,1,1]);

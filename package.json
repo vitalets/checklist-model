@@ -7,6 +7,12 @@
     "name": "Vitaliy Potapov",
     "email": "noginsk@rambler.ru"
   },
+  "contributors": [
+  {
+    "name": "Adrian Ber",
+    "email": "beradrian@yahoo.com"
+  }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/vitalets/checklist-model.git"
