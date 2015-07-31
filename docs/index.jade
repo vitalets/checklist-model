@@ -29,9 +29,11 @@ html(ng-app='app')
     - items.push({id: 'array-simple', text: 'Array of primitives', ctrlName: 'Ctrl1', testValue: 'user.roles'})
     - items.push({id: 'array-id', text: 'Array of objects (pick id)', ctrlName: 'Ctrl2', testValue: 'user.roles'})
     - items.push({id: 'array-object', text: 'Array of objects (pick object)', ctrlName: 'Ctrl3', testValue: 'user.roles'})
+    - items.push({id: 'single-object', text: 'Array of only one object', ctrlName: 'Ctrl7', testValue: 'user.roles'})
     - items.push({id: 'object', text: 'Object properties', ctrlName: 'Ctrl4', testValue: 'user.roles'})
     - items.push({id: 'array-object-with-ngmodel', text: 'Array of object, specifying also the ngModel attribute', ctrlName: 'Ctrl3a', testValue: 'user.roles'})
-    - items.push({id: 'filter', text: 'Filter', ctrlName: 'Ctrl6', testValue: 'selectedUsers'})
+    - items.push({id: 'filter', text: 'Comparator', ctrlName: 'Ctrl6', testValue: 'selectedUsers'})
+    - items.push({id: 'comparator-expression', text: 'Comparator expression', ctrlName: 'Ctrl6a', testValue: 'selectedUsers'})
     - items.push({id: 'event', text: 'Event', ctrlName: 'Ctrl5', testValue: 'testValue'})
 
     .container
@@ -84,6 +86,7 @@ html(ng-app='app')
             button(ng-click="checkAll()", style="margin-right: 10px") Check all
             button(ng-click="uncheckAll()", style="margin-right: 10px") Uncheck all
             button(ng-click="checkFirst()") Check first
+            button(ng-click="setToNull()", ng-if="setToNull") Set to null
 
           .col-xs-12.col-sm-6
             h3= item.testValue

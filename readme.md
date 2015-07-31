@@ -28,5 +28,10 @@ bower install checklist-model
 var app = angular.module("app", ["checklist-model"]);
 ````
 
+### Development
+We're using grunt as the build system. `grunt jade` generates the demo file and `grunt server` starts the demo server that can be access at `http://localhost:8000`. Tests can be ran by accessing `http://localhost:8000/test`.
+
+The best way to involve is to report an issue/enhancement and then provide a pull request for it using Github usual features.
+
 ### License
 MIT 

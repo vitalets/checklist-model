@@ -1,12 +1,18 @@
 {
   "name": "checklist-model",
   "description": "AngularJS directive for list of checkboxes",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "homepage": "http://vitalets.github.io/checklist-model",
   "author": {
     "name": "Vitaliy Potapov",
     "email": "noginsk@rambler.ru"
   },
+  "contributors": [
+  {
+    "name": "Adrian Ber",
+    "email": "beradrian@yahoo.com"
+  }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/vitalets/checklist-model.git"

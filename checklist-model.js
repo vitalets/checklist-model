@@ -48,7 +48,7 @@ angular.module('checklist-model', [])
     attrs.$set("checklistModel", null);
     // compile with `ng-model` pointing to `checked`
     $compile(elem)(scope);
-	attrs.$set("checklistModel", checklistModel);
+    attrs.$set("checklistModel", checklistModel);
 
     // getter / setter for original model
     var getter = $parse(checklistModel);
@@ -62,7 +62,15 @@ angular.module('checklist-model', [])
     var comparator = angular.equals;
 
     if (attrs.hasOwnProperty('checklistComparator')){
-      comparator = $parse(attrs.checklistComparator)(scope.$parent);
+      if (attrs.checklistComparator[0] == '.') {
+        var comparatorExpression = attrs.checklistComparator.substring(1);
+        comparator = function (a, b) {
+          return a[comparatorExpression] === b[comparatorExpression];
+        }
+        
+      } else {
+        comparator = $parse(attrs.checklistComparator)(scope.$parent);
+      }
     }
 
     // watch UI checked change
@@ -103,8 +111,8 @@ angular.module('checklist-model', [])
     scope: true,
     compile: function(tElement, tAttrs) {
       if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox')
-      		&& (tElement[0].tagName !== 'MD-CHECKBOX')
-      		&& (!tAttrs.btnCheckbox)) {
+          && (tElement[0].tagName !== 'MD-CHECKBOX')
+          && (!tAttrs.btnCheckbox)) {
         throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
       }
 
