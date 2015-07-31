@@ -42,7 +42,7 @@ angular.module('checklist-model', [])
   }
 
   // http://stackoverflow.com/a/19228302/1458162
-  function postLinkFn(scope, elem, attrs) {
+  function postLinkFn(scope, elem, attrs, formController) {
      // exclude recursion, but still keep the model
     var checklistModel = attrs.checklistModel;
     attrs.$set("checklistModel", null);
@@ -54,7 +54,8 @@ angular.module('checklist-model', [])
     var getter = $parse(checklistModel);
     var setter = getter.assign;
     var checklistChange = $parse(attrs.checklistChange);
-
+    var updateFormFieldState = formController[attrs.name];
+	
     // value added to list
     var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
 
@@ -76,6 +77,7 @@ angular.module('checklist-model', [])
       } else {
         setter(scope.$parent, remove(current, value, comparator));
       }
+	  updateFormFieldState.$setTouched();
 
       if (checklistChange) {
         checklistChange(scope);
@@ -101,6 +103,7 @@ angular.module('checklist-model', [])
     priority: 1000,
     terminal: true,
     scope: true,
+	require: '^form',
     compile: function(tElement, tAttrs) {
       if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox')
       		&& (tElement[0].tagName !== 'MD-CHECKBOX')
