@@ -79,10 +79,12 @@ angular.module('checklist-model', [])
         return;
       } 
       var current = getter(scope.$parent);
-      if (newValue === true) {
-        setter(scope.$parent, add(current, value, comparator));
-      } else {
-        setter(scope.$parent, remove(current, value, comparator));
+      if (angular.isFunction(setter)) {
+        if (newValue === true) {
+          setter(scope.$parent, add(current, value, comparator));
+        } else {
+          setter(scope.$parent, remove(current, value, comparator));
+        }
       }
 
       if (checklistChange) {

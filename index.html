@@ -118,6 +118,103 @@ app.controller('Ctrl1', function($scope) {
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Use a function as checklist-model</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl8" class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label ng-repeat="role in roles">
+  <input type="checkbox" checklist-model="getRoles()" checklist-value="role" ng-change="check(role, checked)"> {{role}}
+</label></div>
+          <script>app.controller('Ctrl8', function($scope) {
+  $scope.roles = [
+    'guest', 
+    'user', 
+    'customer', 
+    'admin'
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('guest');
+  };
+  $scope.getRoles = function() {
+    return $scope.user.roles;
+  };
+  $scope.check = function(value, checked) {
+    var idx = $scope.user.roles.indexOf(value);
+    if (idx >= 0 && !checked) {
+      $scope.user.roles.splice(idx, 1);
+    }
+    if (idx < 0 && checked) {
+      $scope.user.roles.push(value);
+    }
+  };
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
+          <button ng-click="setToNull()" ng-if="setToNull">Set to null</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>getRoles()</h3>
+          <pre>{{getRoles()|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; checklist-model=&quot;getRoles()&quot; checklist-value=&quot;role&quot; ng-change=&quot;check(role, checked)&quot;&gt; {{role}}
+&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl8', function($scope) {
+  $scope.roles = [
+    'guest', 
+    'user', 
+    'customer', 
+    'admin'
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = angular.copy($scope.roles);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push('guest');
+  };
+  $scope.getRoles = function() {
+    return $scope.user.roles;
+  };
+  $scope.check = function(value, checked) {
+    var idx = $scope.user.roles.indexOf(value);
+    if (idx &gt;= 0 &amp;&amp; !checked) {
+      $scope.user.roles.splice(idx, 1);
+    }
+    if (idx &lt; 0 &amp;&amp; checked) {
+      $scope.user.roles.push(value);
+    }
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <h2 style="margin-bottom: 0">Array of objects (pick id)</h2>
         </div>
       </div>
@@ -485,7 +582,7 @@ app.controller('Ctrl3a', function($scope) {
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <h2 style="margin-bottom: 0">Filter</h2>
+          <h2 style="margin-bottom: 0">Comparator</h2>
         </div>
       </div>
       <div ng-controller="Ctrl6" class="row">
@@ -753,29 +850,8 @@ app.controller('Ctrl5', function($scope) {
 &copy; <a href="https://github.com/vitalets">Vitaliy Potapov</a> 2013. Released under the MIT license.</p>
 
       </footer>
-    </div><!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter22971388 = new Ya.Metrika({id:22971388,
-                    accurateTrackBounce:true});
-        } catch(e) { }
-    });
-
-    var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-    if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-})(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="//mc.yandex.ru/watch/22971388" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+    </div>
   </body>
 </html>
+<!--    if env == 'prod'-->
+<!--      include metrika.html-->
