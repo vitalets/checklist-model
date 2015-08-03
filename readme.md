@@ -38,7 +38,7 @@ The best way to involve is to report an issue/enhancement and then provide a pul
 2. Create under that folder `ctrl.js` to describe the test Angular controller, `view.html` to describe the view part in HTML and `test.js` for the Angular scenario test. You can use an existing test as an example.
 3. Add a line like `- items.push({id: 'your-test', text: 'Your test, ctrlName: 'CtrlTestName', testValue: 'selectedItems'})` to `docs/index.jade`
 4. Add a line like `<script src="../docs/blocks/your-test/test.js"></script>` to `test\index.html`
-5. Run `grunt jade`
+5. Run `grunt jade` to generate `index.html` from `docs/index.jade`
 6. Run `grunt server`
 7. Access `http://localhost:8000` for samples and `http://localhost:8000/test` for running the tests.
 
