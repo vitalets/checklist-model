@@ -86,7 +86,7 @@ angular.module('checklist-model', [])
 
           if (!!maxLength) {
             if (current.length >= maxLength) {
-              console.error(' Can add only '+maxLength+' value(s) !');
+              // console.error(' Can add only '+maxLength+' value(s) !');
               scope.checked = false;
               return;
             };
