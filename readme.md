@@ -24,7 +24,8 @@ You should play with attributes of `<input>` tag:
 Please, try out
 * live demo: http://vitalets.github.io/checklist-model
 * Jsfiddle: http://jsfiddle.net/Ebv3p/2/  
-* Plunker (more advanced): http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+* Plunkr example (more advanced): http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+* Plunkr example for [tree list](http://plnkr.co/edit/QPLk98pCljp8dFtptSYz?p=preview)
 
 ## Installation
 1. Download [latest release](https://github.com/vitalets/checklist-model/releases) or use bower `bower install checklist-model` or install from npm `npm install checklist-model`
