@@ -9,20 +9,22 @@ from several checkboxes.
 **Checklist-model** solves that task without additional code in controller.   
 You should play with attributes of `<input>` tag:
   
-1. set `checklist-model` instead of `ng-model`
-2. set `checklist-value` - what should be picked as array item  
+| Attribute         | Mandatory | Description                                   |
+| :---------------: | :-------: | --------------------------------------------- |
+| `checklist-model` | Yes       | Use instead of `ng-model`                     |
+| `checklist-value` | No        | What should be picked as array item           |
+| `value`           | No        | What should be picked as item, but unlike `checklist-value`, this does not evaluate as an angular expression, but rather a static value |
+| `ng-model`        | No        | Every checkbok will span a new scope and define a variable named `checked` to hold its state. You can modify this name by using this attribute. |
 
-Please, try out live demo: http://vitalets.github.io/checklist-model
+If you're using `track by` you must specify the same thing for `checklist-value` too. See [#46](https://github.com/vitalets/checklist-model/issues/46).
 
-Jsfiddle: http://jsfiddle.net/Ebv3p/2/  
-Plunker (more advanced): http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+Please, try out
+* live demo: http://vitalets.github.io/checklist-model
+* Jsfiddle: http://jsfiddle.net/Ebv3p/2/  
+* Plunker (more advanced): http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
 
 ## Installation
-1. [Download latest release](https://github.com/vitalets/checklist-model/releases) or use bower:
-````
-bower install checklist-model 
-````
-
+1. Download [latest release](https://github.com/vitalets/checklist-model/releases) or use bower `bower install checklist-model` or install from npm `npm install checklist-model`
 2. Add to app dependencies:
 ````js
 var app = angular.module("app", ["checklist-model"]);
