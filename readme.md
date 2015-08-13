@@ -34,6 +34,10 @@ Please, try out
 var app = angular.module("app", ["checklist-model"]);
 ````
 
+## How to get support
+* Ask a question on StackOverflow and tag it with [checklist-model](http://stackoverflow.com/questions/tagged/checklist-model).
+* [Fill in](https://github.com/vitalets/checklist-model/issues/new) an issue.
+
 ## Development
 We're using grunt as the build system. `grunt jade` generates the demo file and `grunt server` starts the demo server that can be access at `http://localhost:8000`. Tests can be ran by accessing `http://localhost:8000/test`.
 
