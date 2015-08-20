@@ -38,6 +38,8 @@ var app = angular.module("app", ["checklist-model"]);
 * Ask a question on StackOverflow and tag it with [checklist-model](http://stackoverflow.com/questions/tagged/checklist-model).
 * [Fill in](https://github.com/vitalets/checklist-model/issues/new) an issue.
 
+Please keep in mind to also create a Plunkr or JSFiddle example. This will greatly help us in assisting you and you can use one of the existing examples and fork it.
+
 ## Development
 We're using grunt as the build system. `grunt jade` generates the demo file and `grunt server` starts the demo server that can be access at `http://localhost:8000`. Tests can be ran by accessing `http://localhost:8000/test`.
 
