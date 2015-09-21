@@ -54,5 +54,10 @@ The best way to involve is to report an issue/enhancement and then provide a pul
 6. Run `grunt server`
 7. Access `http://localhost:8000` for samples and `http://localhost:8000/test` for running the tests.
 
+### How to make a new release
+1. Change the version number in `bower.json` and `package.json`
+2. Create a new [release](https://github.com/vitalets/checklist-model/releases) in github with the same name for tag and title as the version number (e.g. `1.0.0`). Do not forget to include the changelog in the release description.
+3. Run `npm publish` to publish the new version to npm
+
 ## License
 MIT 
