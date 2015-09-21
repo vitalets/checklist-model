@@ -7,6 +7,8 @@ with one model.
 But in practice we usually want one model to store array of checked values 
 from several checkboxes.  
 **Checklist-model** solves that task without additional code in controller.   
+
+## Usage
 You should play with attributes of `<input>` tag:
   
 | Attribute          | Mandatory | Description                                   |
