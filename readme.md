@@ -1,3 +1,5 @@
+![Bower](https://img.shields.io/bower/v/checklist-model.svg) [![NPM](https://img.shields.io/npm/v/angular-translate.svg)](https://www.npmjs.com/package/checklist-model) ![License](https://img.shields.io/npm/l/checklist-model.svg)
+
 # checklist-model
 AngularJS directive for list of checkboxes
 
