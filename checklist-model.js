@@ -66,7 +66,7 @@ angular.module('checklist-model', [])
         var comparatorExpression = attrs.checklistComparator.substring(1);
         comparator = function (a, b) {
           return a[comparatorExpression] === b[comparatorExpression];
-        }
+        };
         
       } else {
         comparator = $parse(attrs.checklistComparator)(scope.$parent);
@@ -112,9 +112,7 @@ angular.module('checklist-model', [])
     terminal: true,
     scope: true,
     compile: function(tElement, tAttrs) {
-      if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox')
-          && (tElement[0].tagName !== 'MD-CHECKBOX')
-          && (!tAttrs.btnCheckbox)) {
+      if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') && (tElement[0].tagName !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)) {
         throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
       }
 

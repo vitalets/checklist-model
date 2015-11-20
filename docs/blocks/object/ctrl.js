@@ -1,9 +1,9 @@
 app.controller('Ctrl4', function($scope) {
   $scope.roles = {
-    g: 'Guest',
-    u: 'User',
+    a: 'Administrator',
     c: 'Customer',
-    a: 'Administrator'
+    g: 'Guest',
+    u: 'User'
   };
   $scope.user = {
     roles: ['c']
