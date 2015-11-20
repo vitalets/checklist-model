@@ -22,7 +22,7 @@ describe('object', function() {
   it('should check all', function() {
     element(s+'button[ng-click="checkAll()"]').click();
     check(a, [1,1,1,1]);
-    expect(element(s+'pre').text()).toBe('[\n  \"g\",\n  \"u\",\n  \"c\",\n  \"a\"\n]');
+    expect(element(s+'pre').text()).toBe('[\n  \"a\",\n  \"c\",\n  \"g\",\n  \"u\"\n]');
   });
 
   it('should uncheck all', function() {
