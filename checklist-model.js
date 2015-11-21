@@ -81,6 +81,17 @@ angular.module('checklist-model', [])
       var current = getter(scope.$parent);
       if (angular.isFunction(setter)) {
         if (newValue === true) {
+
+          var maxLength = $parse(attrs.checklistMaxLength)(scope.$parent)
+
+          if (!!maxLength) {
+            if (current.length >= maxLength) {
+              // console.error(' Can add only '+maxLength+' value(s) !');
+              scope.checked = false;
+              return;
+            };
+          };
+          
           setter(scope.$parent, add(current, value, comparator));
         } else {
           setter(scope.$parent, remove(current, value, comparator));
