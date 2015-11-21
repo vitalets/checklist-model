@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checklist-model - AngularJS directive for list of checkboxes</title>
     <!-- Bootstrap 3-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
     <!--docs css-->
@@ -831,7 +830,7 @@ app.controller('Ctrl6a', function($scope) {
         <div class="col-xs-12 col-sm-6">
           <h3>demo</h3>
           <div class="well"><label ng-repeat="(key, text) in roles">
-  <input type="checkbox" checklist-change="imChanged()" checklist-model="user.roles" checklist-value="key"> {{text}}
+  <input type="checkbox" checklist-before-change="shouldChange(key)" checklist-change="imChanged()" checklist-model="user.roles" checklist-value="key"> {{text}}
 </label></div>
           <script>app.controller('Ctrl5', function($scope) {
   $scope.roles = {
@@ -841,10 +840,14 @@ app.controller('Ctrl6a', function($scope) {
     u: 'User'
   };
 
-    $scope.testValue = 'Im not changed yet!';
-    $scope.imChanged = function(){
-        $scope.testValue = $scope.user.roles.join(',');
-    }
+  $scope.testValue = 'Im not changed yet!';
+  $scope.imChanged = function(){
+    $scope.testValue = $scope.user.roles.join(',');
+  }
+  $scope.shouldChange = function(key){
+console.log("should change " + key);
+    return key !== "g";
+  }
 
   $scope.user = {
     roles: ['c']
@@ -881,7 +884,7 @@ app.controller('Ctrl6a', function($scope) {
         <div class="col-xs-12">
           <h3>html</h3>
           <pre class="prettyprint ng-non-bindable">&lt;label ng-repeat=&quot;(key, text) in roles&quot;&gt;
-  &lt;input type=&quot;checkbox&quot; checklist-change=&quot;imChanged()&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;key&quot;&gt; {{text}}
+  &lt;input type=&quot;checkbox&quot; checklist-before-change=&quot;shouldChange(key)&quot; checklist-change=&quot;imChanged()&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;key&quot;&gt; {{text}}
 &lt;/label&gt;</pre>
           <h3>js</h3>
           <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
@@ -893,10 +896,14 @@ app.controller('Ctrl5', function($scope) {
     u: 'User'
   };
 
-    $scope.testValue = 'Im not changed yet!';
-    $scope.imChanged = function(){
-        $scope.testValue = $scope.user.roles.join(',');
-    }
+  $scope.testValue = 'Im not changed yet!';
+  $scope.imChanged = function(){
+    $scope.testValue = $scope.user.roles.join(',');
+  }
+  $scope.shouldChange = function(key){
+console.log(&quot;should change &quot; + key);
+    return key !== &quot;g&quot;;
+  }
 
   $scope.user = {
     roles: ['c']
