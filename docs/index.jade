@@ -6,7 +6,6 @@ html(ng-app='app')
     title Checklist-model - AngularJS directive for list of checkboxes
 
     // Bootstrap 3
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet", media="screen")
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css", rel="stylesheet", media="screen")
 
@@ -32,6 +31,7 @@ html(ng-app='app')
     - items.push({id: 'array-object', text: 'Array of objects (pick object)', ctrlName: 'Ctrl3', testValue: 'user.roles'})
     - items.push({id: 'single-object', text: 'Array of only one object', ctrlName: 'Ctrl7', testValue: 'user.roles'})
     - items.push({id: 'object', text: 'Object properties', ctrlName: 'Ctrl4', testValue: 'user.roles'})
+    - items.push({id: 'object-static-list', text: 'Static list of objects (without ng-repeat)', ctrlName: 'Ctrl4a', testValue: 'user.roles'})
     - items.push({id: 'function-as-model', text: 'Use a function as checklist-model', ctrlName: 'Ctrl8', testValue: 'getRoles()'})
     - items.push({id: 'array-object-with-ngmodel', text: 'Array of object, specifying also the ngModel attribute', ctrlName: 'Ctrl3a', testValue: 'user.roles'})
     - items.push({id: 'filter', text: 'Comparator', ctrlName: 'Ctrl6', testValue: 'selectedUsers'})

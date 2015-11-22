@@ -6,10 +6,14 @@ app.controller('Ctrl5', function($scope) {
     u: 'User'
   };
 
-    $scope.testValue = 'Im not changed yet!';
-    $scope.imChanged = function(){
-        $scope.testValue = $scope.user.roles.join(',');
-    }
+  $scope.testValue = 'Im not changed yet!';
+  $scope.imChanged = function(){
+    $scope.testValue = $scope.user.roles.join(',');
+  }
+  $scope.shouldChange = function(key){
+console.log("should change " + key);
+    return key !== "g";
+  }
 
   $scope.user = {
     roles: ['c']

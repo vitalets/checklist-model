@@ -13,14 +13,15 @@ from several checkboxes.
 ## Usage
 You should play with attributes of `<input>` tag:
   
-| Attribute          | Mandatory | Description                                   |
-| :----------------: | :-------: | --------------------------------------------- |
-| `checklist-model`  | Yes       | Use instead of `ng-model`                     |
-| `checklist-value`  | No        | What should be picked as array item           |
-| `value`            | No        | What should be picked as item, but unlike `checklist-value`, this does not evaluate as an angular expression, but rather a static value |
-| `ng-model`         | No        | Every checkbok will span a new scope and define a variable named `checked` to hold its state. You can modify this name by using this attribute. |
-| `checklist-comparator` | No   | A custom comparator. If it starts with dot(`.`) then it will be an expression applied to the array item. Otherwise it should evaluate to a function as an angular expression. The function return true if the first two arguments are equal and false otherwise. |
-| `checklist-change` | No       | An angular expression evaluated each time the `checklist-model` has changed. |
+| Attribute                 | Mandatory | Description                                   |
+| :-----------------------: | :-------: | --------------------------------------------- |
+| `checklist-model`         | Yes       | Use instead of `ng-model`                     |
+| `checklist-value`         | No        | What should be picked as array item           |
+| `value`                   | No        | What should be picked as item, but unlike `checklist-value`, this does not evaluate as an angular expression, but rather a static value |
+| `ng-model`                | No        | Every checkbok will span a new scope and define a variable named `checked` to hold its state. You can modify this name by using this attribute. |
+| `checklist-comparator`    | No   | A custom comparator. If it starts with dot(`.`) then it will be an expression applied to the array item. Otherwise it should evaluate to a function as an angular expression. The function return true if the first two arguments are equal and false otherwise. |
+| `checklist-before-change` | No       | An angular expression evaluated each time before the `checklist-model` has changed. If it evaluates to 'false' then the model will not change anymore. |
+| `checklist-change`        | No       | An angular expression evaluated each time the `checklist-model` has changed. |
 
 * If you modify directly the value of the `checklist-model`, it is possible that the UI won't be updated. This is because this directive looks for the model in the parent, not in the current scope. Instead of doing `checklistModelList = []` it is better to do `checklistModelList.splice(0, checklistModelList.length)` or wrap it in another object.
 * If you're using `track by` you must specify the same thing for `checklist-value` too. See [#46](https://github.com/vitalets/checklist-model/issues/46).
