@@ -74,7 +74,7 @@ angular.module('checklist-model', [])
       }
     }
 
-    setValueInChecklistModel(value, scope[attrs.ngModel]);
+    setValueInChecklistModel(value, $parse(attrs.ngModel)(scope));
 
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
