@@ -74,6 +74,8 @@ angular.module('checklist-model', [])
       }
     }
 
+    setValueInChecklistModel(value, $parse(attrs.ngModel)(scope));
+
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
       if (newValue === oldValue) { 
@@ -91,7 +93,7 @@ angular.module('checklist-model', [])
         checklistChange(scope);
       }
     });
-
+    
     function setValueInChecklistModel(value, checked) {
       var current = getter(scope.$parent);
       if (angular.isFunction(setter)) {
