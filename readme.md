@@ -1,5 +1,7 @@
 ![Bower](https://img.shields.io/bower/v/checklist-model.svg) [![NPM](https://img.shields.io/npm/v/checklist-model.svg)](https://www.npmjs.com/package/checklist-model) ![License](https://img.shields.io/npm/l/checklist-model.svg)
 
+[![NPM](https://nodei.co/npm/checklist-model.png)](https://nodei.co/npm/checklist-model/)
+
 # checklist-model
 AngularJS directive for list of checkboxes
 
@@ -25,6 +27,7 @@ You should play with attributes of `<input>` tag:
 
 * If you modify directly the value of the `checklist-model`, it is possible that the UI won't be updated. This is because this directive looks for the model in the parent, not in the current scope. Instead of doing `checklistModelList = []` it is better to do `checklistModelList.splice(0, checklistModelList.length)` or wrap it in another object.
 * If you're using `track by` you must specify the same thing for `checklist-value` too. See [#46](https://github.com/vitalets/checklist-model/issues/46).
+* If you're also using `ngModel`, please keep in mind that the state of the checkbok is initialized with the value from `checklistModel`, not with the one from `ngModel`. Afterwards the two will be kept in sync, but initially, these two can be conflicting, so only `checklistModel` is used. See the entire discussion at #104.
 
 Please, try out
 * live demo: http://vitalets.github.io/checklist-model

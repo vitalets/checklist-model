@@ -50,11 +50,11 @@ angular.module('checklist-model', [])
     $compile(elem)(scope);
     attrs.$set("checklistModel", checklistModel);
 
-    // getter / setter for original model
-    var getter = $parse(checklistModel);
-    var setter = getter.assign;
+    // getter for original model
+    var checklistModelGetter = $parse(checklistModel);
     var checklistChange = $parse(attrs.checklistChange);
     var checklistBeforeChange = $parse(attrs.checklistBeforeChange);
+    var ngModelGetter = $parse(attrs.ngModel);
 
     // value added to list
     var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
@@ -74,8 +74,6 @@ angular.module('checklist-model', [])
       }
     }
 
-    setValueInChecklistModel(value, $parse(attrs.ngModel)(scope));
-
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
       if (newValue === oldValue) { 
@@ -83,7 +81,7 @@ angular.module('checklist-model', [])
       } 
 
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        scope[attrs.ngModel] = contains(getter(scope.$parent), value, comparator);
+        ngModelGetter.assign(scope, contains(checklistModelGetter(scope.$parent), value, comparator));
         return;
       }
 
@@ -95,12 +93,12 @@ angular.module('checklist-model', [])
     });
     
     function setValueInChecklistModel(value, checked) {
-      var current = getter(scope.$parent);
-      if (angular.isFunction(setter)) {
+      var current = checklistModelGetter(scope.$parent);
+      if (angular.isFunction(checklistModelGetter.assign)) {
         if (checked === true) {
-          setter(scope.$parent, add(current, value, comparator));
+          checklistModelGetter.assign(scope.$parent, add(current, value, comparator));
         } else {
-          setter(scope.$parent, remove(current, value, comparator));
+          checklistModelGetter.assign(scope.$parent, remove(current, value, comparator));
         }
       }
       
@@ -109,10 +107,10 @@ angular.module('checklist-model', [])
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        setValueInChecklistModel(value, scope[attrs.ngModel]);
+        setValueInChecklistModel(value, ngModelGetter(scope));
         return;
       }
-      scope[attrs.ngModel] = contains(newArr, value, comparator);
+      ngModelGetter.assign(scope, contains(newArr, value, comparator));
     }
 
     // watch original model change
