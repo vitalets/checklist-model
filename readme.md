@@ -30,9 +30,10 @@ You should play with attributes of `<input>` tag:
 * If you're also using `ngModel`, please keep in mind that the state of the checkbok is initialized with the value from `checklistModel`, not with the one from `ngModel`. Afterwards the two will be kept in sync, but initially, these two can be conflicting, so only `checklistModel` is used. See the entire discussion at #104.
 
 Please, try out
-* live demo: http://vitalets.github.io/checklist-model
-* Jsfiddle: http://jsfiddle.net/Ebv3p/2/  
-* Plunkr example (more advanced): http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+* Live demo: http://vitalets.github.io/checklist-model
+* JsFiddle basic example (use this to report any issue): http://jsfiddle.net/beradrian/fjoLy5sq/
+* JSFiddle required example: http://jsfiddle.net/beradrian/7wt9q1ev/  
+* Plunkr example: http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
 * Plunkr example for [tree list](http://plnkr.co/edit/QPLk98pCljp8dFtptSYz?p=preview)
 
 ## Installation
@@ -46,7 +47,7 @@ var app = angular.module("app", ["checklist-model"]);
 * Ask a question on StackOverflow and tag it with [checklist-model](http://stackoverflow.com/questions/tagged/checklist-model).
 * [Fill in](https://github.com/vitalets/checklist-model/issues/new) an issue.
 
-Please keep in mind to also create a Plunkr or JSFiddle example. This will greatly help us in assisting you and you can use one of the existing examples and fork it.
+Please keep in mind to also add a Plunkr or JSFiddle example. This will greatly help us in assisting you and you can use one of the existing examples and fork it.
 
 ## Development
 We're using grunt as the build system. `grunt jade` generates the demo file and `grunt server` starts the demo server that can be access at `http://localhost:8000`. Tests can be ran by accessing `http://localhost:8000/test`.
