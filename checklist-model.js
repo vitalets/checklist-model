@@ -56,8 +56,6 @@ angular.module('checklist-model', [])
     var checklistBeforeChange = $parse(attrs.checklistBeforeChange);
     var ngModelGetter = $parse(attrs.ngModel);
 
-    // value added to list
-    var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
 
 
     var comparator = angular.equals;
@@ -78,19 +76,32 @@ angular.module('checklist-model', [])
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
       if (newValue === oldValue) { 
         return;
-      } 
+      }
 
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        ngModelGetter.assign(scope, contains(checklistModelGetter(scope.$parent), value, comparator));
+        ngModelGetter.assign(scope, contains(checklistModelGetter(scope.$parent), getChecklistValue(), comparator));
         return;
       }
 
-      setValueInChecklistModel(value, newValue);
+      setValueInChecklistModel(getChecklistValue(), newValue);
 
       if (checklistChange) {
         checklistChange(scope);
       }
     });
+
+    // watches for value change of checklistValue (Credit to @blingerson)
+    scope.$watch(getChecklistValue, function(newValue, oldValue) {
+      if( newValue != oldValue && angular.isDefined(oldValue) && scope[attrs.ngModel] === true ) {
+        var current = checklistModelGetter(scope.$parent);
+        checklistModelGetter.assign(scope.$parent, remove(current, oldValue, comparator));
+        checklistModelGetter.assign(scope.$parent, add(current, newValue, comparator));
+      }
+    });
+
+    function getChecklistValue() {
+      return attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
+    }
     
     function setValueInChecklistModel(value, checked) {
       var current = checklistModelGetter(scope.$parent);
@@ -107,10 +118,10 @@ angular.module('checklist-model', [])
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        setValueInChecklistModel(value, ngModelGetter(scope));
+        setValueInChecklistModel(getChecklistValue(), ngModelGetter(scope));
         return;
       }
-      ngModelGetter.assign(scope, contains(newArr, value, comparator));
+      ngModelGetter.assign(scope, contains(newArr, getChecklistValue(), comparator));
     }
 
     // watch original model change
