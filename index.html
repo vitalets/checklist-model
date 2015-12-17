@@ -272,6 +272,85 @@ app.controller('Ctrl3', function($scope) {
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Array of objects (dynamic values)</h2>
+        </div>
+      </div>
+      <div ng-controller="Ctrl9" class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><div ng-repeat="role in roles">
+  <label style="display:inline-block;">
+    <input type="checkbox" checklist-model="user.roles" checklist-value="role.text">
+  </label>
+  <input type="text" ng-model="role.text" style="display:inline-block;">
+</div></div>
+          <script>app.controller('Ctrl9', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'},
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = $scope.roles.map(function(item) { return item.text; });
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0].text);
+  };
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
+          <button ng-click="setToNull()" ng-if="setToNull">Set to null</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>user.roles</h3>
+          <pre>{{user.roles|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;div ng-repeat=&quot;role in roles&quot;&gt;
+  &lt;label style=&quot;display:inline-block;&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.roles&quot; checklist-value=&quot;role.text&quot;&gt;
+  &lt;/label&gt;
+  &lt;input type=&quot;text&quot; ng-model=&quot;role.text&quot; style=&quot;display:inline-block;&quot;&gt;
+&lt;/div&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('Ctrl9', function($scope) {
+  $scope.roles = [
+    {id: 1, text: 'guest'},
+    {id: 2, text: 'user'},
+    {id: 3, text: 'customer'},
+    {id: 4, text: 'admin'},
+  ];
+  $scope.user = {
+    roles: ['user']
+  };
+  $scope.checkAll = function() {
+    $scope.user.roles = $scope.roles.map(function(item) { return item.text; });
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.roles = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.roles.splice(0, $scope.user.roles.length); 
+    $scope.user.roles.push($scope.roles[0].text);
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <h2 style="margin-bottom: 0">Array of only one object</h2>
         </div>
       </div>
