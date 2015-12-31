@@ -38,9 +38,13 @@ Please, try out
 
 ## Installation
 1. Download [latest release](https://github.com/vitalets/checklist-model/releases) or use bower `bower install checklist-model` or install from npm `npm install checklist-model`
-2. Add to app dependencies:
+2. Include checklist-model.js in your index.html
+````html
+<script src="lib/checklist-model/checklist-model.js"></script>
+````
+3. Add to app dependencies:
 ````js
-var app = angular.module("app", ["checklist-model"]);
+angular.module("app", ["checklist-model"]);
 ````
 
 ## How to get support
