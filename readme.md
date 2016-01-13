@@ -33,7 +33,7 @@ Please, try out
 * Live demo: http://vitalets.github.io/checklist-model
 * JsFiddle basic example (use this to report any issue): http://jsfiddle.net/beradrian/fjoLy5sq/
 * JSFiddle required example: http://jsfiddle.net/beradrian/7wt9q1ev/  
-* Plunkr example: http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+* Plunkr example: http://plnkr.co/edit/0UrMwtiNQxJJbVWnYgSt?p=preview
 * Plunkr example for [tree list](http://plnkr.co/edit/QPLk98pCljp8dFtptSYz?p=preview)
 
 ## Installation
