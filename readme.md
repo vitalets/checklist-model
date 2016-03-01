@@ -33,15 +33,16 @@ Please, try out
 * Live demo: http://vitalets.github.io/checklist-model
 * JsFiddle basic example (use this to report any issue): http://jsfiddle.net/beradrian/fjoLy5sq/
 * JSFiddle required example: http://jsfiddle.net/beradrian/7wt9q1ev/  
-* Plunkr example: http://plnkr.co/edit/pZLF0KesMDnIap0eCfSG?p=preview
+* Plunkr example: http://plnkr.co/edit/0UrMwtiNQxJJbVWnYgSt?p=preview
 * Plunkr example for [tree list](http://plnkr.co/edit/QPLk98pCljp8dFtptSYz?p=preview)
 
 ## Installation
-1. 
-    a. Download [latest release](https://github.com/vitalets/checklist-model/releases) and include it in your HTML file `<script src='checklist-model.js'></script>`
-    b. Use bower `bower install checklist-model`
-    c. Install from npm `npm install checklist-model`
-2. Add to app dependencies:
+1. Include the directive in your code
+    1. Download [latest release](https://github.com/vitalets/checklist-model/releases) *or*
+    2. Use bower `bower install checklist-model` *or*
+    3. Install from npm `npm install checklist-model`
+2. If your JavaScript file is not generated from dependencies, then you must include it in your HTML `<script src='checklist-model.js'></script>` 
+3. Add to app dependencies:
 ````js
 var app = angular.module("app", ["checklist-model"]);
 ````

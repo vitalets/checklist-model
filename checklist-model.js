@@ -26,7 +26,7 @@ angular.module('checklist-model', [])
           arr.push(item);
       }
     return arr;
-  }  
+  }
 
   // remove
   function remove(arr, item, comparator) {
@@ -66,7 +66,7 @@ angular.module('checklist-model', [])
         comparator = function (a, b) {
           return a[comparatorExpression] === b[comparatorExpression];
         };
-        
+
       } else {
         comparator = $parse(attrs.checklistComparator)(scope.$parent);
       }
@@ -74,7 +74,7 @@ angular.module('checklist-model', [])
 
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
-      if (newValue === oldValue) { 
+      if (newValue === oldValue) {
         return;
       }
 
@@ -97,12 +97,12 @@ angular.module('checklist-model', [])
         checklistModelGetter.assign(scope.$parent, remove(current, oldValue, comparator));
         checklistModelGetter.assign(scope.$parent, add(current, newValue, comparator));
       }
-    });
+    }, true);
 
     function getChecklistValue() {
       return attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
     }
-    
+
     function setValueInChecklistModel(value, checked) {
       var current = checklistModelGetter(scope.$parent);
       if (angular.isFunction(checklistModelGetter.assign)) {
@@ -112,7 +112,7 @@ angular.module('checklist-model', [])
           checklistModelGetter.assign(scope.$parent, remove(current, value, comparator));
         }
       }
-      
+
     }
 
     // declare one function to be used for both $watch functions
