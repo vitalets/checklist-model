@@ -90,7 +90,7 @@ angular.module('checklist-model', [])
       }
     });
 
-    // watches for value change of checklistValue (Credit to @blingerson)
+    // watches for value change of checklistValue
     scope.$watch(getChecklistValue, function(newValue, oldValue) {
       if( newValue != oldValue && angular.isDefined(oldValue) && scope[attrs.ngModel] === true ) {
         var current = checklistModelGetter(scope.$parent);
