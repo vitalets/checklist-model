@@ -7,7 +7,14 @@ app.controller('Ctrl5', function($scope) {
   };
 
   $scope.testValue = 'Im not changed yet!';
-  $scope.imChanged = function(){
+  $scope.imChanged = function(checked, key) {
+    if (checked) {
+      console.log(key + " activated")
+    }
+    else {
+      console.log(key + " deactivated")
+    }
+
     $scope.testValue = $scope.user.roles.join(',');
   }
   $scope.shouldChange = function(key){

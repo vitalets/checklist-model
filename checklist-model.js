@@ -86,7 +86,7 @@ angular.module('checklist-model', [])
       setValueInChecklistModel(getChecklistValue(), newValue);
 
       if (checklistChange) {
-        checklistChange(scope);
+        checklistChange(scope, { "$checked": newValue });
       }
     });
 
