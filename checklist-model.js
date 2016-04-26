@@ -73,7 +73,7 @@ angular.module('checklist-model', [])
     }
 
     // watch UI checked change
-    scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+    var unbindModel = scope.$watch(attrs.ngModel, function(newValue, oldValue) {
       if (newValue === oldValue) {
         return;
       }
@@ -91,13 +91,21 @@ angular.module('checklist-model', [])
     });
 
     // watches for value change of checklistValue
-    scope.$watch(getChecklistValue, function(newValue, oldValue) {
+    var unbindCheckListValue = scope.$watch(getChecklistValue, function(newValue, oldValue) {
       if( newValue != oldValue && angular.isDefined(oldValue) && scope[attrs.ngModel] === true ) {
         var current = checklistModelGetter(scope.$parent);
         checklistModelGetter.assign(scope.$parent, remove(current, oldValue, comparator));
         checklistModelGetter.assign(scope.$parent, add(current, newValue, comparator));
       }
     }, true);
+
+    var unbindDestroy = scope.$on('$destroy', destroy);
+
+    function destroy() {
+      unbindModel();
+      unbindCheckListValue();
+      unbindDestroy();
+    }
 
     function getChecklistValue() {
       return attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
