@@ -5,6 +5,11 @@
  * License: MIT http://opensource.org/licenses/MIT
  */
 
+ /* commonjs package manager support (eg componentjs) */
+ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
+   module.exports = 'checklist-model';
+ }
+
 angular.module('checklist-model', [])
 .directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
   // contains
