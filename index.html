@@ -45,6 +45,83 @@ You should play with attributes of <code>&lt;input type=&quot;checkbox&quot;&gt;
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <h2 style="margin-bottom: 0">Array of numbers</h2>
+        </div>
+      </div>
+      <div ng-controller="NumbersCtrl" class="row">
+        <div class="col-xs-12 col-sm-6">
+          <h3>demo</h3>
+          <div class="well"><label class="checkbox-inline"><input type="checkbox" checklist-model="user.numbers" value="1"> 1</label>
+<label class="checkbox-inline"><input type="checkbox" checklist-model="user.numbers" value="2"> 2</label>
+<label class="checkbox-inline"><input type="checkbox" checklist-model="user.numbers" value="3"> 3</label>
+<label class="checkbox-inline"><input type="checkbox" checklist-model="user.numbers" value="4"> 4</label></div>
+          <script>app.controller('NumbersCtrl', function($scope) {
+  $scope.numbers = [
+    1,
+    2,
+    3,
+    4
+  ];
+  $scope.user = {
+    numbers: [2]
+  };
+
+  $scope.checkAll = function() {
+    $scope.user.numbers = angular.copy($scope.numbers);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.numbers = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.numbers.splice(0, $scope.user.numbers.length);
+    $scope.user.numbers.push(1);
+  };
+});</script>
+          <button ng-click="checkAll()" style="margin-right: 10px">Check all</button>
+          <button ng-click="uncheckAll()" style="margin-right: 10px">Uncheck all</button>
+          <button ng-click="checkFirst()">Check first</button>
+          <button ng-click="setToNull()" ng-if="setToNull">Set to null</button>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <h3>user.numbers</h3>
+          <pre>{{user.numbers|json}}</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>html</h3>
+          <pre class="prettyprint ng-non-bindable">&lt;label class=&quot;checkbox-inline&quot;&gt;&lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.numbers&quot; value=&quot;1&quot;&gt; 1&lt;/label&gt;
+&lt;label class=&quot;checkbox-inline&quot;&gt;&lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.numbers&quot; value=&quot;2&quot;&gt; 2&lt;/label&gt;
+&lt;label class=&quot;checkbox-inline&quot;&gt;&lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.numbers&quot; value=&quot;3&quot;&gt; 3&lt;/label&gt;
+&lt;label class=&quot;checkbox-inline&quot;&gt;&lt;input type=&quot;checkbox&quot; checklist-model=&quot;user.numbers&quot; value=&quot;4&quot;&gt; 4&lt;/label&gt;</pre>
+          <h3>js</h3>
+          <pre class="prettyprint">var app = angular.module(&quot;app&quot;, [&quot;checklist-model&quot;]);
+app.controller('NumbersCtrl', function($scope) {
+  $scope.numbers = [
+    1,
+    2,
+    3,
+    4
+  ];
+  $scope.user = {
+    numbers: [2]
+  };
+
+  $scope.checkAll = function() {
+    $scope.user.numbers = angular.copy($scope.numbers);
+  };
+  $scope.uncheckAll = function() {
+    $scope.user.numbers = [];
+  };
+  $scope.checkFirst = function() {
+    $scope.user.numbers.splice(0, $scope.user.numbers.length);
+    $scope.user.numbers.push(1);
+  };
+});</pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <h2 style="margin-bottom: 0">Array of primitives</h2>
         </div>
       </div>
