@@ -63,7 +63,13 @@ angular.module('checklist-model', [])
 
 
 
-    var comparator = angular.equals;
+    var comparator = function (a, b) {
+      if(!isNaN(a) && !isNaN(b)) {
+        return String(a) === String(b);
+      } else {
+        return angular.equals(a,b);
+      }
+    };
 
     if (attrs.hasOwnProperty('checklistComparator')){
       if (attrs.checklistComparator[0] == '.') {
