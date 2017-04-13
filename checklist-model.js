@@ -96,6 +96,9 @@ angular.module('checklist-model', [])
 
       setValueInChecklistModel(getChecklistValue(), newValue);
 
+      // trigger change event for jQuery
+      elem.change();
+
       if (checklistChange) {
         checklistChange(scope);
       }
