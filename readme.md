@@ -46,6 +46,7 @@ Please, try out
 ````js
 var app = angular.module("app", ["checklist-model"]);
 ````
+> Since version `1.0.0` you *must* install the `angular` library yourself as it is now a [`peerDependency`](https://nodejs.org/en/blog/npm/peer-dependencies/)
 
 ## How to get support
 * Ask a question on StackOverflow and tag it with [checklist-model](http://stackoverflow.com/questions/tagged/checklist-model).
