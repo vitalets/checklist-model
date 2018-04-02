@@ -61,9 +61,11 @@ You should play with attributes of `<input>` tag:
 Please keep in mind to also add a Plunkr or JSFiddle example. This will greatly help us in assisting you and you can use one of the existing examples and fork it.
 
 ## Development
-We're using grunt as the build system. `grunt jade` generates the demo file and `grunt server` starts the demo server that can be access at `http://localhost:8000`. Tests can be ran by accessing `http://localhost:8000/test`.
-
-The best way to involve is to report an issue/enhancement and then provide a pull request for it using Github usual features.
+### How to run tests
+1. Generate live demo *index.html* via `grunt jade` 
+2. Run local http server `grunt server` 
+3. Open in browser http://localhost:8000 to check that demo is accessible
+4. Open in browser http://localhost:8000/test and wait until all tests pass
 
 ### How to add a new test case
 1. Create a new folder under `docs/blocks` named `your-test`.
