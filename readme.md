@@ -12,6 +12,25 @@ But in practice we usually want one model to store array of checked values
 from several checkboxes.  
 **Checklist-model** solves that task without additional code in controller.   
 
+## Live demo
+http://vitalets.github.io/checklist-model
+
+## Installation
+> Note: since version `1.0.0` you *must* install the `angular` library yourself as it is now a [`peerDependency`](https://nodejs.org/en/blog/npm/peer-dependencies/)
+
+1. Download package:
+    * From npm `npm install checklist-model`
+    * From bower `bower install checklist-model`
+    * From [latest release](https://github.com/vitalets/checklist-model/releases)
+2. Include script to the HTML:
+    ```html
+    <script src='checklist-model.js'></script>
+    ```
+3. Add to app dependencies:
+    ```js
+    var app = angular.module("app", ["checklist-model"]);
+    ```
+
 ## Usage
 You should play with attributes of `<input>` tag:
 
@@ -29,24 +48,11 @@ You should play with attributes of `<input>` tag:
 * If you're using `track by` you must specify the same thing for `checklist-value` too. See [#46](https://github.com/vitalets/checklist-model/issues/46).
 * If you're also using `ngModel`, please keep in mind that the state of the checkbok is initialized with the value from `checklistModel`, not with the one from `ngModel`. Afterwards the two will be kept in sync, but initially, these two can be conflicting, so only `checklistModel` is used. See the entire discussion at [#104](https://github.com/vitalets/checklist-model/issues/104).
 
-Please, try out
-* Live demo: http://vitalets.github.io/checklist-model
+## Examples
 * JsFiddle basic example (use this to report any issue): http://jsfiddle.net/beradrian/fjoLy5sq/
 * JSFiddle required example: http://jsfiddle.net/beradrian/7wt9q1ev/  
 * Plunkr example: http://plnkr.co/edit/0UrMwtiNQxJJbVWnYgSt?p=preview
 * Plunkr example for [tree list](http://plnkr.co/edit/QPLk98pCljp8dFtptSYz?p=preview)
-
-## Installation
-1. Include the directive in your code
-    1. Download [latest release](https://github.com/vitalets/checklist-model/releases) *or*
-    2. Use bower `bower install checklist-model` *or*
-    3. Install from npm `npm install checklist-model`
-2. If your JavaScript file is not generated from dependencies, then you must include it in your HTML `<script src='checklist-model.js'></script>`
-3. Add to app dependencies:
-````js
-var app = angular.module("app", ["checklist-model"]);
-````
-> Since version `1.0.0` you *must* install the `angular` library yourself as it is now a [`peerDependency`](https://nodejs.org/en/blog/npm/peer-dependencies/)
 
 ## How to get support
 * Ask a question on StackOverflow and tag it with [checklist-model](http://stackoverflow.com/questions/tagged/checklist-model).
